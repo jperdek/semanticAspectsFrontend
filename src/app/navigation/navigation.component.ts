@@ -1,0 +1,42 @@
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthenticationService } from '../authentication.service';
+import { Role } from '../models/role';
+import { RouterData } from '../models/router';
+
+@Component({
+  selector: 'app-navigation',
+  templateUrl: './navigation.component.html',
+  styleUrls: ['./navigation.component.css']
+})
+export class NavigationComponent implements OnInit {
+
+  constructor(private router:Router, private authenticationService: AuthenticationService) { 
+    console.log(this.router.config);
+  }
+
+  ngOnInit(): void {
+  }
+
+  logout() {
+    this.authenticationService.logout();
+    this.router.navigate(['/']);
+  }
+
+  hasAccessRights(pathParent:string){
+    for(var dataPath of this.router.config){
+        if(dataPath['path'] == pathParent){
+          const routerData = dataPath as RouterData;
+          const roles:Role[] = routerData.data.roles;
+          if (roles && !roles.some(r => this.authenticationService.hasRole(r))) {
+            //this.router.navigate(['error', 'not-found']); 
+            //this.router.navigate(['login']);
+            return false;
+          }
+          return true;
+        }
+    }
+    return true;
+  }
+
+}
