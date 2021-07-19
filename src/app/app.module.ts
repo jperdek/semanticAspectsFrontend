@@ -22,8 +22,11 @@ import { reducers } from './store';
 import { AppEffects } from './effects/app.effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
-import { FileUploadComponent } from './file-upload/file-upload.component';
+import { FileUploadComponent } from './fileUploader/file-upload/file-upload.component';
 import { CategoryObserverComponent } from './category-observer/category-observer.component';
+import { DragAndDropDirective } from './fileUploader/drag-and-drop.directive';
+import { ProgressComponent } from './progress/progress.component';
+import { BasicFlowComponent } from './basic-flow/basic-flow.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +38,10 @@ import { CategoryObserverComponent } from './category-observer/category-observer
     LoginComponent,
     RegisterComponent,
     FileUploadComponent,
-    CategoryObserverComponent
+    CategoryObserverComponent,
+    DragAndDropDirective,
+    ProgressComponent,
+    BasicFlowComponent
   ],
   imports: [
     BrowserModule,

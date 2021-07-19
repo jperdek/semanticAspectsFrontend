@@ -22,6 +22,9 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatChipsModule } from '@angular/material/chips';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatStepperModule } from '@angular/material/stepper';
+import { CdkStepperModule } from '@angular/cdk/stepper';
 
 const MaterialComponents = [
   MatToolbarModule,
@@ -48,7 +51,10 @@ const MaterialComponents = [
   MatExpansionModule,
   MatDatepickerModule,
   MatChipsModule,
-  MatNativeDateModule
+  MatNativeDateModule,
+  DragDropModule,
+  CdkStepperModule,
+  MatStepperModule,
 ]
 
 @NgModule({
