@@ -1,0 +1,8 @@
+<mat-step [stepControl]="fileFormGroup">
+    <form [formGroup]="fileFormGroup" method="post" action="" enctype="multipart/form-data" class="form-group">
+    <ng-template matStepLabel>Insert files for analysis</ng-template>
+    <app-file-upload>
+    </app-file-upload>
+    </form>
+    {{ getUploadedFiles() | json }}
+</mat-step>

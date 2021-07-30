@@ -17,14 +17,11 @@ export const initialState:  SearchState = adapter.getInitialState({
 
 export const reducer = createReducer(
   initialState,
-  on(canvasStateActions.loadSearchCustomizationEntities,
-    (state:any, action: any) => adapter.setAll(action.loadSearchCustomizationEntities, state)
-  ),
   on(canvasStateActions.addSearchCustomizationEntity,
-    (state:any, action: any) => adapter.setAll(action.addSearchCustomizationEntity, state)
+    (state:any, action: any) => adapter.upsertOne(action.addSearchCustomizationEntity, state)
   ),
   on(canvasStateActions.deleteSearchCustomizationEntity,
-    (state:any, action: any) => adapter.setAll(action.deleteSearchCustomizationEntity, state)
+    (state:any, action: any) => adapter.removeOne(action.deleteSearchCustomizationEntity, state)
   ),
 );
 

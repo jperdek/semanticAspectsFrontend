@@ -27,6 +27,17 @@ import { CategoryObserverComponent } from './category-observer/category-observer
 import { DragAndDropDirective } from './fileUploader/drag-and-drop.directive';
 import { ProgressComponent } from './progress/progress.component';
 import { BasicFlowComponent } from './basic-flow/basic-flow.component';
+import { OktaAuthModule, OKTA_CONFIG } from '@okta/okta-angular';
+import { SenseAnalysisComponent } from './sense-analysis/sense-analysis.component';
+import { FileLoaderComponentComponent } from './file-loader-component/file-loader-component.component';
+import { SegmentationMethodChooserComponent } from './segmentation-method-chooser/segmentation-method-chooser.component';
+
+const oktaConfig = {
+  issuer: 'https://dev-03853854.okta.com',
+  clientId: '0oa19wfjhrBoVLqSw5d7',
+  redirectUri: window.location.origin + '/lcallback',
+  scope: 'openid profile email'
+}
 
 @NgModule({
   declarations: [
@@ -41,7 +52,11 @@ import { BasicFlowComponent } from './basic-flow/basic-flow.component';
     CategoryObserverComponent,
     DragAndDropDirective,
     ProgressComponent,
-    BasicFlowComponent
+    BasicFlowComponent,
+    SenseAnalysisComponent,
+    FileLoaderComponentComponent,
+    SegmentationMethodChooserComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -54,9 +69,10 @@ import { BasicFlowComponent } from './basic-flow/basic-flow.component';
     StoreModule.forRoot(reducers), 
     EffectsModule.forRoot([AppEffects]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    StoreRouterConnectingModule.forRoot()
+    StoreRouterConnectingModule.forRoot(),
+    OktaAuthModule,
   ],
-  providers: [],
+  providers: [{ provide: OKTA_CONFIG, useValue: oktaConfig }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

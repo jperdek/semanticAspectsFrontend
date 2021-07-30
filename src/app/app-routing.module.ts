@@ -5,7 +5,15 @@ import { CategoryObserverComponent } from './category-observer/category-observer
 import { LoginComponent } from './login/login.component';
 import { Role } from './models/role';
 import { RegisterComponent } from './register/register.component';
+import { OKTA_CONFIG, OktaAuthModule, OktaCallbackComponent, OktaAuthGuard } from '@okta/okta-angular';
+import { SenseAnalysisComponent } from './sense-analysis/sense-analysis.component';
 
+const oktaConfig = {
+  issuer: 'https://dev-03853854.okta.com',
+  clientId: '0oa19wfjhrBoVLqSw5d7',
+  redirectUri: window.location.origin + '/lcallback',
+  scope: 'openid profile email'
+}
 
 const routes: Routes = [
   {
@@ -18,8 +26,8 @@ const routes: Routes = [
   },
   {
     path: 'analyser',
-    canLoad: [],
-    canActivate: [],
+    canLoad: [OktaAuthGuard],
+    canActivate: [OktaAuthGuard],
     data: {
       roles: [
         Role.Admin,
@@ -31,10 +39,14 @@ const routes: Routes = [
       {
         path: 'category',
         component: CategoryObserverComponent
+      },
+      {
+        path: 'senseAnalysis',
+        component: SenseAnalysisComponent
       }
     ]
   },
-  
+  { path: 'lcallback', component: OktaCallbackComponent },
 ];
 
 @NgModule({

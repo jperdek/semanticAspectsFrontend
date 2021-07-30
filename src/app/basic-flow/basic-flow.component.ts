@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SharedFilesForAnalysisService } from 'src/app/shared-files-for-analysis.service';
+import { SenseApiManagerService } from '../sense-api-manager.service';
 
 @Component({
   selector: 'app-basic-flow',
@@ -10,17 +11,17 @@ import { SharedFilesForAnalysisService } from 'src/app/shared-files-for-analysis
 export class BasicFlowComponent implements OnInit {
 
   isLinear = false;
-  firstFormGroup: FormGroup;
-  secondFormGroup: FormGroup;
+  senseFormGroup: FormGroup;
+  fileFormGroup: FormGroup;
   processFiles: boolean = true;
-  
-  constructor(private _formBuilder: FormBuilder) {}
+
+  constructor(private _formBuilder: FormBuilder, private _senseApiManagerService: SenseApiManagerService) {}
 
   ngOnInit() {
-    this.firstFormGroup = this._formBuilder.group({
+    this.fileFormGroup = this._formBuilder.group({
       firstCtrl: ['', Validators.required]
     });
-    this.secondFormGroup = this._formBuilder.group({
+    this.senseFormGroup = this._formBuilder.group({
       secondCtrl: ['', Validators.required]
     });
   }
@@ -33,5 +34,17 @@ export class BasicFlowComponent implements OnInit {
       }
     }
     return SharedFilesForAnalysisService.getUploadedFiles();
+  }
+
+  public formatLabel(value: number) {
+    if (value >= 100) {
+      return Math.round(value / 100) + ' words';
+    }
+
+    return value;
+  }
+
+  public startSenseAnalysis(text: string, window: number): void {
+    this._senseApiManagerService.senseAnalysis(text, window).then(result => console.log(result)).catch(error => console.log("Error: " + error));
   }
 }

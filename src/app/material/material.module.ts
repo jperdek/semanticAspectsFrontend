@@ -25,6 +25,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatStepperModule } from '@angular/material/stepper';
 import { CdkStepperModule } from '@angular/cdk/stepper';
+import { MatSortModule } from '@angular/material/sort';
 
 const MaterialComponents = [
   MatToolbarModule,
@@ -55,6 +56,7 @@ const MaterialComponents = [
   DragDropModule,
   CdkStepperModule,
   MatStepperModule,
+  MatSortModule
 ]
 
 @NgModule({

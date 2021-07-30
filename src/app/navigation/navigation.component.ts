@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from '../authentication.service';
 import { Role } from '../models/role';
 import { RouterData } from '../models/router';
+import { OktaAuthService } from '../okta-auth.service';
 
 @Component({
   selector: 'app-navigation',
@@ -11,7 +12,7 @@ import { RouterData } from '../models/router';
 })
 export class NavigationComponent implements OnInit {
 
-  constructor(private router:Router, private authenticationService: AuthenticationService) { 
+  constructor(private oktaAuth: OktaAuthService, private router:Router, private authenticationService: AuthenticationService) { 
     console.log(this.router.config);
   }
 
@@ -20,23 +21,27 @@ export class NavigationComponent implements OnInit {
 
   logout() {
     this.authenticationService.logout();
+    this.oktaAuth.logout();
     this.router.navigate(['/']);
   }
 
   hasAccessRights(pathParent:string){
-    for(var dataPath of this.router.config){
-        if(dataPath['path'] == pathParent){
-          const routerData = dataPath as RouterData;
-          const roles:Role[] = routerData.data.roles;
-          if (roles && !roles.some(r => this.authenticationService.hasRole(r))) {
-            //this.router.navigate(['error', 'not-found']); 
-            //this.router.navigate(['login']);
-            return false;
+      /*
+      for(var dataPath of this.router.config){
+          if(dataPath['path'] == pathParent){
+            const routerData = dataPath as RouterData;
+            const roles:Role[] = routerData.data.roles;
+            if (roles && !roles.some(r => this.authenticationService.hasRole(r))) {
+              //this.router.navigate(['error', 'not-found']); 
+              //this.router.navigate(['login']);
+              return false;
+            }
+            return true;
           }
-          return true;
-        }
+      }
+      return true;
     }
-    return true;
+  */
+    return true
   }
-
 }

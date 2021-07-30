@@ -26,6 +26,7 @@
     "@ngrx/router-store": "^12.2.0",
     "@ngrx/store": "^12.2.0",
     "@ngrx/store-devtools": "^12.2.0",
+    "@okta/okta-angular": "^3.2.0",
     "path": "^0.12.7",
     "rxjs": "~6.6.0",
     "stream": "0.0.2",

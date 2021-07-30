@@ -1,23 +1,41 @@
 <mat-vertical-stepper [linear]="isLinear" #stepper>
-    <mat-step [stepControl]="firstFormGroup">
-      <form [formGroup]="firstFormGroup" method="post" action="" enctype="multipart/form-data" class="form-group">
+  <mat-step [stepControl]="fileFormGroup">
+      <form [formGroup]="fileFormGroup" method="post" action="" enctype="multipart/form-data" class="form-group">
         <ng-template matStepLabel>Insert files for analysis</ng-template>
         <app-file-upload>
         </app-file-upload>
       </form>
-    </mat-step>
-    <mat-step [stepControl]="secondFormGroup">
-      <form [formGroup]="secondFormGroup">
-        <ng-template matStepLabel>Fill out your address</ng-template>
-        {{ getUploadedFiles() | json }}
-      </form>
-    </mat-step>
-    <mat-step>
-      <ng-template matStepLabel>Done</ng-template>
-      <p>You are now done.</p>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button (click)="stepper.reset()">Reset</button>
-      </div>
-    </mat-step>
+      {{ getUploadedFiles() | json }}
+  </mat-step>
+    
+  <mat-step [stepControl]="senseFormGroup">
+    <form [formGroup]="senseFormGroup">
+      <ng-template matStepLabel>Choose segmentation method</ng-template>
+
+      <mat-slider
+          thumbLabel
+          [displayWith]="formatLabel"
+          tickInterval="1000"
+          step="1000"
+          min="0"
+          max="100000"
+          aria-label="units">
+      </mat-slider>
+
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Text for analysis</mat-label>
+        <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
+      </mat-form-field>
+
+      <button (click)="startSenseAnalysis('This text is good to process for many reasons!!!', 3)">Send request</button>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    <p>You are now done.</p>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+    </div>
+  </mat-step>
 </mat-vertical-stepper>
