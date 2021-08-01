@@ -31,6 +31,8 @@ import { OktaAuthModule, OKTA_CONFIG } from '@okta/okta-angular';
 import { SenseAnalysisComponent } from './sense-analysis/sense-analysis.component';
 import { FileLoaderComponentComponent } from './file-loader-component/file-loader-component.component';
 import { SegmentationMethodChooserComponent } from './segmentation-method-chooser/segmentation-method-chooser.component';
+import { SegmentationAnalysisComponent } from './segmentation-analysis/segmentation-analysis.component';
+import { FileOrInputComponent } from './file-or-input/file-or-input.component';
 
 const oktaConfig = {
   issuer: 'https://dev-03853854.okta.com',
@@ -56,6 +58,8 @@ const oktaConfig = {
     SenseAnalysisComponent,
     FileLoaderComponentComponent,
     SegmentationMethodChooserComponent,
+    SegmentationAnalysisComponent,
+    FileOrInputComponent,
     
   ],
   imports: [

@@ -1,0 +1,43 @@
+<mat-radio-group>
+    <mat-accordion [multi]="true">
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <mat-radio-button class="segmentatin-method-radio-button" [value]="'season'">
+                        CETD Analysis
+                    </mat-radio-button>
+                </mat-panel-title>
+                <mat-panel-description>
+                        
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <app-file-or-input [files]="files"></app-file-or-input>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <mat-radio-button class="segmentatin-method-radio-button" [value]="'seas2on'">
+                        SOM tree
+                    </mat-radio-button>
+                </mat-panel-title>
+                <mat-panel-description>
+                        
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <app-file-or-input [files]="files"></app-file-or-input>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <mat-radio-button class="segmentatin-method-radio-button" [value]="'seas3on'">
+                        All text
+                    </mat-radio-button>
+                </mat-panel-title>
+                <mat-panel-description>
+                        
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <app-file-or-input [files]="files"></app-file-or-input>
+        </mat-expansion-panel>
+    </mat-accordion>
+</mat-radio-group>

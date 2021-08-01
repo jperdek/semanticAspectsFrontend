@@ -1,0 +1,42 @@
+<div class="fileOrInputBlock">
+    <div *ngFor="let loadedFile of files; let index = index">
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Record name</mat-label>
+        <input  matInput placeholder="Ex. ecommerce.txt" value="{{loadedFile.name}}">
+      </mat-form-field>
+    
+      <span>{{loadedFile.size}}</span>
+
+      <button mat-icon-button color="primary" aria-label="submit text" type="button" (click)="getFileContent(loadedFile); loadedFile.showed = true;" >
+        <mat-icon>visibility</mat-icon>
+      </button>
+
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Record content</mat-label>
+        <textarea matInput placeholder="Ex. <html><head></head><body>" *ngIf="loadedFile.showed">{{ loadedFile.textResult }}</textarea>
+      </mat-form-field>
+
+      <mat-checkbox class="example-margin">Is HTML</mat-checkbox>
+
+      <button mat-icon-button color="primary" aria-label="submit text" type="button">
+        <mat-icon>add_circle_outline</mat-icon>
+      </button>
+    </div>
+    <form [formGroup]="addFileFormGroup" class="example-form" (ngSubmit)="addRecordToRecords($event)">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Record name</mat-label>
+          <input formControlName="recordNameFormControl" matInput placeholder="Ex. ecommerce.txt" value="Sushi">
+        </mat-form-field>
+      
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Record content</mat-label>
+          <textarea formControlName="recordFormControl" matInput placeholder="Ex. <html><head></head><body>"></textarea>
+        </mat-form-field>
+
+        <mat-checkbox class="example-margin">Is HTML</mat-checkbox>
+
+        <button mat-icon-button color="primary" aria-label="submit text" type="submit">
+          <mat-icon>add_circle_outline</mat-icon>
+        </button>
+      </form>
+</div>

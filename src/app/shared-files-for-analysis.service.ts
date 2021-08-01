@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core';
+import { FileModel } from './models/fileModel';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SharedFilesForAnalysisService {
 
-  private static uploadedFiles: any[] = []
+  private static uploadedFiles: FileModel[] = []
 
   constructor() { }
 
-  static setReference(uploadedFiles: any[]) {
+  public static setReference(uploadedFiles: FileModel[]) {
     SharedFilesForAnalysisService.uploadedFiles = uploadedFiles;
   }
 
-  static getUploadedFiles(): any[] {
+  public static getUploadedFiles(): FileModel[] {
     return SharedFilesForAnalysisService.uploadedFiles;
   }
 }

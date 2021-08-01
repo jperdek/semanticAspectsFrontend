@@ -7,10 +7,18 @@
       </form>
       {{ getUploadedFiles() | json }}
   </mat-step>
-    
+   
   <mat-step [stepControl]="senseFormGroup">
     <form [formGroup]="senseFormGroup">
       <ng-template matStepLabel>Choose segmentation method</ng-template>
+
+      <app-segmentation-analysis [files]="getUploadedFiles()"></app-segmentation-analysis>
+    </form>
+  </mat-step>
+
+  <mat-step [stepControl]="senseFormGroup">
+    <form [formGroup]="senseFormGroup">
+      <ng-template matStepLabel>Choose sense analysis method</ng-template>
 
       <mat-slider
           thumbLabel

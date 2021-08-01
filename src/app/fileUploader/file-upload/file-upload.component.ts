@@ -1,4 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { FileModel } from 'src/app/models/fileModel';
 import { SharedFilesForAnalysisService } from 'src/app/shared-files-for-analysis.service';
 
 //USED RESOURCE: https://github.com/progtarek/angular-drag-n-drop-directive
@@ -27,8 +28,9 @@ export class FileUploadComponent implements OnInit {
 
   printContent(files: FileList){
     for(var i=0; i<this.filesToUpload.length; i++){
-      var processedFile: any = this.filesToUpload.item(i);
+      var processedFile: FileModel = this.filesToUpload.item(i) as FileModel;
       processedFile.progress = 0;
+      processedFile.showed = false;
       this.uploadedFiles.push(processedFile);
       console.log(processedFile.type); // obtain type - not available
       //console.log(processedFile.text().then(value=> { console.log(value)})); // obtain content
