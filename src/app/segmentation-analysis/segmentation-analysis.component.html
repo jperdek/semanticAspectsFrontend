@@ -8,10 +8,21 @@
                     </mat-radio-button>
                 </mat-panel-title>
                 <mat-panel-description>
-                        
                 </mat-panel-description>
             </mat-expansion-panel-header>
-            <app-file-or-input [files]="files"></app-file-or-input>
+            <app-select-files-for-given-operation [files]="files" [segmentation]="true" segmentationMethodName="CETD"></app-select-files-for-given-operation>
+            <div class="chooseMethod">
+                <h1>Choose methods which should be used!</h1>
+                <form [formGroup]="cetdFormGroup" (ngSubmit)="useCETDSegmentation($event)">
+                    <mat-checkbox formControlName="cetdNormalMethod" name="CETDNormal" class="checkboxField" checked="true">Normal extractor</mat-checkbox>
+                    <mat-checkbox formControlName="cetdEdgareMethod" name="CETDEdgare" class="checkboxField" checked="true">Edgare extractor</mat-checkbox>
+                    <mat-checkbox formControlName="cetdVariantMethod" name="CETDVariant" class="checkboxField" checked="true">Variant extractor</mat-checkbox>
+                    <button class="addContentToRecords" color="accent" aria-label="submit text" type="submit">
+                        <mat-icon class="addTextToRecord">add_circle_outline</mat-icon>
+                        <span class="addTextToRecordText">Apply cetd segmentation on files</span>
+                      </button>
+                </form>
+            </div>
         </mat-expansion-panel>
         <mat-expansion-panel>
             <mat-expansion-panel-header>
@@ -24,7 +35,7 @@
                         
                 </mat-panel-description>
             </mat-expansion-panel-header>
-            <app-file-or-input [files]="files"></app-file-or-input>
+            <app-select-files-for-given-operation [files]="files" [segmentation]="true" segmentationMethodName="SOM_tree"></app-select-files-for-given-operation>
         </mat-expansion-panel>
         <mat-expansion-panel>
             <mat-expansion-panel-header>
@@ -37,7 +48,7 @@
                         
                 </mat-panel-description>
             </mat-expansion-panel-header>
-            <app-file-or-input [files]="files"></app-file-or-input>
+            <app-select-files-for-given-operation [files]="files" [segmentation]="true" segmentationMethodName="all_text"></app-select-files-for-given-operation>
         </mat-expansion-panel>
     </mat-accordion>
 </mat-radio-group>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { OktaAuthService } from '../okta-auth.service';
+import { OktaAuthService } from '../services/authentification/okta-auth.service';
 
 @Component({
   selector: 'app-login',

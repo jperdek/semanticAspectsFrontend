@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
-import { ProcessFileComponent } from './process-file/process-file.component';
 import { MenuComponent } from './menu/menu.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { FooterComponent } from './footer/footer.component';
@@ -29,10 +28,10 @@ import { ProgressComponent } from './progress/progress.component';
 import { BasicFlowComponent } from './basic-flow/basic-flow.component';
 import { OktaAuthModule, OKTA_CONFIG } from '@okta/okta-angular';
 import { SenseAnalysisComponent } from './sense-analysis/sense-analysis.component';
-import { FileLoaderComponentComponent } from './file-loader-component/file-loader-component.component';
 import { SegmentationMethodChooserComponent } from './segmentation-method-chooser/segmentation-method-chooser.component';
 import { SegmentationAnalysisComponent } from './segmentation-analysis/segmentation-analysis.component';
 import { FileOrInputComponent } from './file-or-input/file-or-input.component';
+import { SelectFilesForGivenOperationComponent } from './select-files-for-given-operation/select-files-for-given-operation.component';
 
 const oktaConfig = {
   issuer: 'https://dev-03853854.okta.com',
@@ -44,7 +43,6 @@ const oktaConfig = {
 @NgModule({
   declarations: [
     AppComponent,
-    ProcessFileComponent,
     MenuComponent,
     NavigationComponent,
     FooterComponent,
@@ -56,11 +54,10 @@ const oktaConfig = {
     ProgressComponent,
     BasicFlowComponent,
     SenseAnalysisComponent,
-    FileLoaderComponentComponent,
     SegmentationMethodChooserComponent,
     SegmentationAnalysisComponent,
     FileOrInputComponent,
-    
+    SelectFilesForGivenOperationComponent
   ],
   imports: [
     BrowserModule,

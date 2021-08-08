@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FileModel } from './models/fileModel';
+import { FileModel } from '../models/fileModel';
 
 @Injectable({
   providedIn: 'root'

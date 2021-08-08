@@ -1,6 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { FileModel } from 'src/app/models/fileModel';
-import { SharedFilesForAnalysisService } from 'src/app/shared-files-for-analysis.service';
+import { SharedFilesForAnalysisService } from 'src/app/services/shared-files-for-analysis.service';
 
 //USED RESOURCE: https://github.com/progtarek/angular-drag-n-drop-directive
 @Component({

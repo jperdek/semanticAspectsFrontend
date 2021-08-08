@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { SharedFilesForAnalysisService } from 'src/app/shared-files-for-analysis.service';
-import { SenseApiManagerService } from '../sense-api-manager.service';
+import { SharedFilesForAnalysisService } from 'src/app/services/shared-files-for-analysis.service';
+import { SenseApiManagerService } from '../services/senseAnalysis/sense-api-manager.service';
 
 @Component({
   selector: 'app-basic-flow',
@@ -29,7 +29,7 @@ export class BasicFlowComponent implements OnInit {
   getUploadedFiles(): any[] {
     if(this.processFiles && SharedFilesForAnalysisService.getUploadedFiles()[0] !== undefined) {
       if(SharedFilesForAnalysisService.getUploadedFiles()[0].progress === 100) {
-        SharedFilesForAnalysisService.getUploadedFiles()[0].text().then(content => console.log(content));
+       // SharedFilesForAnalysisService.getUploadedFiles()[0].text().then(content => console.log(content));
         this.processFiles = false;
       }
     }
@@ -45,6 +45,7 @@ export class BasicFlowComponent implements OnInit {
   }
 
   public startSenseAnalysis(text: string, window: number): void {
-    this._senseApiManagerService.senseAnalysis(text, window).then(result => console.log(result)).catch(error => console.log("Error: " + error));
+    console.log(SharedFilesForAnalysisService.getUploadedFiles());
+    //this._senseApiManagerService.senseAnalysis(text, window).then(result => console.log(result)).catch(error => console.log("Error: " + error));
   }
 }

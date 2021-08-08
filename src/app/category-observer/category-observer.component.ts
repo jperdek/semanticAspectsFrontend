@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ReadabilityAnalysisService } from '../semanticAspects/readability/readability-analysis.service';
-import { FileUploadComponent } from '../fileUploader/file-upload/file-upload.component';
 
 @Component({
   selector: 'app-category-observer',

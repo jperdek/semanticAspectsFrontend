@@ -5,7 +5,7 @@
         <app-file-upload>
         </app-file-upload>
       </form>
-      {{ getUploadedFiles() | json }}
+      <app-file-or-input [files]="getUploadedFiles()"></app-file-or-input>
   </mat-step>
    
   <mat-step [stepControl]="senseFormGroup">
@@ -30,10 +30,10 @@
           aria-label="units">
       </mat-slider>
 
-      <mat-form-field class="example-full-width" appearance="fill">
+      <div class="example-full-width" appearance="fill">
         <mat-label>Text for analysis</mat-label>
-        <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
-      </mat-form-field>
+        <textarea matInput name="textForAnalysis" placeholder="Ex. It makes me feel..."></textarea>
+      </div>
 
       <button (click)="startSenseAnalysis('This text is good to process for many reasons!!!', 3)">Send request</button>
     </form>

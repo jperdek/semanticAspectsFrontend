@@ -5,7 +5,7 @@ import { from } from 'rxjs';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { SenseRating, SenseResult } from '../models/senseRating';
-import { SenseApiManagerService } from '../sense-api-manager.service';
+import { SenseApiManagerService } from '../services/senseAnalysis/sense-api-manager.service';
 
 
 @Component({

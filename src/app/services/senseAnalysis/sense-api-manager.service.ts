@@ -1,6 +1,7 @@
 import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AuthManagerService } from './auth-manager.service';
+import { AuthManagerService } from '../authentification/auth-manager.service';
+
 
 @Injectable({
   providedIn: 'root'
