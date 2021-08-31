@@ -9,6 +9,10 @@
     transition: outline-offset .15s ease-in-out, background-color .15s linear;
 }
 
+.file-on-drag {
+    background-color: #666655 !important;
+}
+
 .box .box_icon {
     width: 100%;
     height: 80px;

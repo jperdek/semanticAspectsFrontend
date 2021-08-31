@@ -14,13 +14,13 @@ export class AuthGuardService implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     if (!this.authenticationService.isAuthorized()) {
-      console.log("NOT AUTHORIZED");
-        this.router.navigate(['login']);
-        return false;
+      console.log('NOT AUTHORIZED');
+      this.router.navigate(['login']);
+      return false;
     }
     const roles = route.data.roles as Role[];
     if (roles && !roles.some(r => this.authenticationService.hasRole(r))) {
-        //this.router.navigate(['error', 'not-found']); 
+        // this.router.navigate(['error', 'not-found']);
         this.router.navigate(['login']);
         return false;
     }
@@ -29,8 +29,8 @@ export class AuthGuardService implements CanActivate {
 
   canLoad(route: Route): Observable<boolean> | Promise<boolean> | boolean {
       if (!this.authenticationService.isAuthorized()) {
-        console.log("NOT AUTHORIZED");
-          return false;
+        console.log('NOT AUTHORIZED');
+        return false;
       }
       const roles = route.data && route.data.roles as Role[];
       if (roles && !roles.some(r => this.authenticationService.hasRole(r))) {

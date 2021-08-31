@@ -12,19 +12,19 @@ export class AuthenticationService {
 
   private user: UserRole = new UserRole();
 
-  isAuthorized() {
-      return this.user.role != Role.Guest;
+  public isAuthorized(): boolean {
+      return this.user.role !== Role.Guest;
   }
 
-  hasRole(role: Role) {
-      return this.isAuthorized() && this.user.role == role;
+  public hasRole(role: Role): boolean {
+      return this.isAuthorized() && this.user.role === role;
   }
 
-  login(role: Role) {
-    this.user = { role: role };
+  public login(role: Role): void {
+    this.user = { role };
   }
 
-  logout() {
+  public logout(): void {
     this.user =  { role: Role.Guest };
   }
 }

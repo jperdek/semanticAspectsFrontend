@@ -1,6 +1,6 @@
 
 export class RouterData {
-  data:any = {
+  data: any = {
     roles: []
-  }
+  };
 }

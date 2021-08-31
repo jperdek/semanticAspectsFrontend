@@ -7,11 +7,10 @@ import { map } from 'rxjs/operators';
 
 @Injectable()
 export class AppEffects {
-  
-  constructor(private actions$: Actions) { 
-    }
+
+  constructor(private actions$: Actions) {}
 
   init$ = createEffect(() => this.actions$.pipe(
     ofType(ROOT_EFFECTS_INIT),
-    map((searchCustomizationModel) => loadSearchCustomizationEntities({ searchCustomizationModel: searchCustomizationModel }))));
+    map((searchCustomizationModel) => loadSearchCustomizationEntities({ searchCustomizationModel }))));
 }

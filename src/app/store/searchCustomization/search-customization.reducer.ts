@@ -11,17 +11,17 @@ export interface SearchState extends EntityState<SearchCustomizationModel> {
 
 export const adapter: EntityAdapter<SearchCustomizationModel> = createEntityAdapter<SearchCustomizationModel>();
 
-export const initialState:  SearchState = adapter.getInitialState({
+export const initialState: SearchState = adapter.getInitialState({
   // additional entity state properties
 });
 
 export const reducer = createReducer(
   initialState,
   on(canvasStateActions.addSearchCustomizationEntity,
-    (state:any, action: any) => adapter.upsertOne(action.addSearchCustomizationEntity, state)
+    (state, action: any) => adapter.upsertOne(action.addSearchCustomizationEntity, state)
   ),
   on(canvasStateActions.deleteSearchCustomizationEntity,
-    (state:any, action: any) => adapter.removeOne(action.deleteSearchCustomizationEntity, state)
+    (state, action: any) => adapter.removeOne(action.deleteSearchCustomizationEntity, state)
   ),
 );
 

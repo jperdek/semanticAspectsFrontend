@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuardService } from './services/authentification/auth-guard.service';
 import { CategoryObserverComponent } from './category-observer/category-observer.component';
 import { LoginComponent } from './login/login.component';
 import { Role } from './models/role';
 import { RegisterComponent } from './register/register.component';
-import { OKTA_CONFIG, OktaAuthModule, OktaCallbackComponent, OktaAuthGuard } from '@okta/okta-angular';
+import { OktaCallbackComponent, OktaAuthGuard } from '@okta/okta-angular';
 import { SenseAnalysisComponent } from './sense-analysis/sense-analysis.component';
 import { SegmentationAnalysisComponent } from './segmentation-analysis/segmentation-analysis.component';
 
@@ -14,7 +13,7 @@ const oktaConfig = {
   clientId: '0oa19wfjhrBoVLqSw5d7',
   redirectUri: window.location.origin + '/lcallback',
   scope: 'openid profile email'
-}
+};
 
 const routes: Routes = [
   {

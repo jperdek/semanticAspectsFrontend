@@ -7,41 +7,35 @@ export class DragAndDropDirective {
 
   @HostBinding('class.fileover') fileOver: boolean;
   @Output() fileDropped = new EventEmitter<any>();
-  
+  outside = true;
+
   constructor() { }
 
-  @HostListener('dragover', ['$event']) onDragOver(event) {
+  @HostListener('dragover', ['$event']) onDragOver(event: DragEvent): void {
+    if (this.outside) {
+      const element = document.getElementById('dropBlock');
+      element.classList.add('file-on-drag');
+      this.outside = false;
+    }
     event.preventDefault();
     event.stopPropagation();
-    console.log("Drag over");
   }
 
-  @HostListener('dragleave', ['$event']) onDragLeave(event) {
+  @HostListener('dragleave', ['$event']) onDragLeave(event: DragEvent): void {
+    this.outside = true;
+    const element = document.getElementById('dropBlock');
+    element.classList.remove('file-on-drag');
     event.preventDefault();
     event.stopPropagation();
-    console.log("Drag leave");
   }
 
-  @HostListener('drop', ['$event']) onDrop(event) {
+  @HostListener('drop', ['$event']) onDrop(event): void  {
     event.preventDefault();
     event.stopPropagation();
-    console.log("Drag leave");
     const files = event.dataTransfer.files;
-  
-    if(files.length > 0) {
+
+    if (files.length > 0) {
       this.fileDropped.emit(files);
     }
-    /*
-    for(var i=0; i<files.length; i++) {
-      if(this.filesToUpload == null){
-        this.uploadedFiles = [];
-      }
-      console.log('HERE');
-      this.uploadedFiles.push(files[i]);
-      this.fileDropped.emit(files);
-      console.log(files[i].name);
-      console.log(files[i].text().then(content => console.log(content)));
-    }
-    */
   }
 }

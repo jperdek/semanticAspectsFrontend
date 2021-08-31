@@ -10,16 +10,16 @@ export class AuthManagerService {
 
   constructor(private oktaAuth: OktaAuthService, private http: HttpClient) { }
 
-  async perform(method, api_part, httpParameters: HttpParams, data = {}) {
+  async perform(method: string, apiPart: string, httpParameters: HttpParams, data = {}): Promise<any> {
     const accessToken = await this.oktaAuth.getAccessToken();
     console.log(accessToken);
-    const url = `http://localhost:5000${api_part}?${httpParameters.toString()}`;
+    const url = `http://localhost:5000${apiPart}?${httpParameters.toString()}`;
     console.log(url);
     console.log(httpParameters.toString());
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${accessToken}`,
+        Authorization: `Bearer ${accessToken}`,
       })
     };
 

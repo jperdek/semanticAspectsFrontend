@@ -12,27 +12,30 @@ import { OktaAuthService } from '../services/authentification/okta-auth.service'
 })
 export class NavigationComponent implements OnInit {
 
-  constructor(private oktaAuth: OktaAuthService, private router:Router, private authenticationService: AuthenticationService) { 
+  constructor(
+    private oktaAuth: OktaAuthService,
+    private router: Router,
+    private authenticationService: AuthenticationService) {
     console.log(this.router.config);
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
   }
 
-  logout() {
+  public logout(): void {
     this.authenticationService.logout();
     this.oktaAuth.logout();
     this.router.navigate(['/']);
   }
 
-  hasAccessRights(pathParent:string){
+  public hasAccessRights(pathParent: string): boolean{
       /*
       for(var dataPath of this.router.config){
           if(dataPath['path'] == pathParent){
             const routerData = dataPath as RouterData;
             const roles:Role[] = routerData.data.roles;
             if (roles && !roles.some(r => this.authenticationService.hasRole(r))) {
-              //this.router.navigate(['error', 'not-found']); 
+              //this.router.navigate(['error', 'not-found']);
               //this.router.navigate(['login']);
               return false;
             }
@@ -42,6 +45,6 @@ export class NavigationComponent implements OnInit {
       return true;
     }
   */
-    return true
+    return true;
   }
 }

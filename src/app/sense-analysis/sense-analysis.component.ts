@@ -14,21 +14,21 @@ import { SenseApiManagerService } from '../services/senseAnalysis/sense-api-mana
   styleUrls: ['./sense-analysis.component.css']
 })
 export class SenseAnalysisComponent implements OnInit {
-  
+
   senseFormGroup: FormGroup;
   private analyzedCategories: Observable<SenseResult>;
   sortedData: SenseRating[];
 
-  constructor(private _formBuilder: FormBuilder, private _senseApiManagerService: SenseApiManagerService) { }
+  constructor(private formBuilder: FormBuilder, private senseApiManagerService: SenseApiManagerService) { }
 
   public ngOnInit(): void {
-    this.senseFormGroup = this._formBuilder.group({
+    this.senseFormGroup = this.formBuilder.group({
       textAreaFormControl: ['', Validators.required],
       windowFormControl: [3, Validators.required],
     });
   }
 
-  public formatLabel(value: number) {
+  public formatLabel(value: number): string {
     return value + 'w';
   }
 
@@ -37,12 +37,13 @@ export class SenseAnalysisComponent implements OnInit {
   }
 
   public startSenseAnalysis(text: string, window: number): void {
-   //this._senseApiManagerService.senseAnalysis(text, window).then(result => console.log(result)).catch(error => console.log(error));
-   this.analyzedCategories = from(this._senseApiManagerService.senseAnalysis(text, window)).pipe(map(results => results as SenseResult));
+   // this._senseApiManagerService.senseAnalysis(text, window).then(result => console.log(result)).catch(error => console.log(error));
+   this.analyzedCategories = from(this.senseApiManagerService.senseAnalysis(text, window))
+   .pipe(map(results => results as SenseResult));
   }
 
   public onSubmit($event: Event): void {
-    if(this.senseFormGroup.valid){
+    if (this.senseFormGroup.valid){
       const text = this.senseFormGroup.controls.textAreaFormControl.value;
       const window = this.senseFormGroup.controls.windowFormControl.value;
       console.log(text);
@@ -50,11 +51,11 @@ export class SenseAnalysisComponent implements OnInit {
 
       this.startSenseAnalysis(text, window);
     } else {
-      console.log("Form is invalid!");
+      console.log('Error: sense analysis form is invalid!');
     }
   }
 
-  public sortData(sort: Sort, ratings: SenseRating[]) {
+  public sortData(sort: Sort, ratings: SenseRating[]): void {
     console.log(ratings);
     const data = ratings.slice();
     if (!sort.active || sort.direction === '') {
@@ -72,7 +73,7 @@ export class SenseAnalysisComponent implements OnInit {
     });
   }
 
-  public compare(a: number | string, b: number | string, isAsc: boolean) {
+  public compare(a: number | string, b: number | string, isAsc: boolean): number {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   }
 }

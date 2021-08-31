@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { OktaAuth, IDToken, AccessToken } from '@okta/okta-auth-js';
 
-//https://developer.okta.com/blog/2019/03/25/build-crud-app-with-python-flask-angular
-//https://developer.okta.com/code/angular/okta_angular_auth_js/#create-an-authentication-service
+// https://developer.okta.com/blog/2019/03/25/build-crud-app-with-python-flask-angular
+// https://developer.okta.com/code/angular/okta_angular_auth_js/#create-an-authentication-service
 
 
 @Injectable({providedIn: 'root'})
@@ -16,7 +16,7 @@ export class OktaAuthService {
   // If using a custom authorization server, ISSUER should be 'https://{yourOktaDomain}/oauth2/${authServerId}'
 
   CLIENT_ID = '0oa19wfjhrBoVLqSw5d7';
-  ISSUER = 'https://dev-03853854.okta.com'
+  ISSUER = 'https://dev-03853854.okta.com';
   LOGIN_REDIRECT_URI = 'http://localhost:4200/lcallback';
   LOGOUT_REDIRECT_URI = 'http://localhost:4200/';
 
@@ -38,12 +38,12 @@ export class OktaAuthService {
     });
   }
 
-  async isAuthenticated() {
+  async isAuthenticated(): Promise<any> {
     // Checks if there is a current accessToken in the TokenManger.
     return !!(await this.oktaAuth.tokenManager.get('accessToken'));
   }
 
-  login(originalUrl: string) {
+  public login(originalUrl: string): void {
     // Save current URL before redirect
     sessionStorage.setItem('okta-app-url', originalUrl || this.router.url);
 
@@ -53,7 +53,7 @@ export class OktaAuthService {
     });
   }
 
-  async handleAuthentication() {
+  async handleAuthentication(): Promise<any> {
     const tokenContainer = await this.oktaAuth.token.parseFromUrl();
 
     this.oktaAuth.tokenManager.add('idToken', tokenContainer.tokens.idToken as IDToken);
@@ -69,7 +69,7 @@ export class OktaAuthService {
     this.router.navigateByUrl(url);
   }
 
-  async logout() {
+  async logout(): Promise<any> {
     await this.oktaAuth.signOut({
       postLogoutRedirectUri: this.LOGOUT_REDIRECT_URI
     });

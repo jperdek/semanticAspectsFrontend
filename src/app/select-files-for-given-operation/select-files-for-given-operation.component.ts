@@ -1,5 +1,5 @@
 import { Input } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FileModel } from '../models/fileModel';
 
 @Component({
@@ -7,12 +7,7 @@ import { FileModel } from '../models/fileModel';
   templateUrl: './select-files-for-given-operation.component.html',
   styleUrls: ['./select-files-for-given-operation.component.css']
 })
-export class SelectFilesForGivenOperationComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+export class SelectFilesForGivenOperationComponent {
 
   @Input()
   files: FileModel[];

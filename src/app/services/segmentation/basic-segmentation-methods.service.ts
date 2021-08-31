@@ -7,10 +7,10 @@ import { AuthManagerService } from '../authentification/auth-manager.service';
 })
 export class BasicSegmentationMethodsService {
 
-  private cetdApiPart: string = "/segmentationAnalysis/CETD/";
+  private cetdApiPart = '/segmentationAnalysis/CETD/';
   constructor(private authManagerService: AuthManagerService) { }
 
-  public cetdExtractor(content: string, methods: string[]) {
+  public cetdExtractor(content: string, methods: string[]): Promise<any> {
     const httpParameters = new HttpParams();
 
     if (methods.length === 0) {

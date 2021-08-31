@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SharedFilesForAnalysisService } from 'src/app/services/shared-files-for-analysis.service';
-import { SenseApiManagerService } from '../services/senseAnalysis/sense-api-manager.service';
 
 @Component({
   selector: 'app-basic-flow',
@@ -13,22 +12,22 @@ export class BasicFlowComponent implements OnInit {
   isLinear = false;
   senseFormGroup: FormGroup;
   fileFormGroup: FormGroup;
-  processFiles: boolean = true;
+  processFiles = true;
 
-  constructor(private _formBuilder: FormBuilder, private _senseApiManagerService: SenseApiManagerService) {}
+  constructor(private formBuilder: FormBuilder) {}
 
-  ngOnInit() {
-    this.fileFormGroup = this._formBuilder.group({
+  public ngOnInit(): void {
+    this.fileFormGroup = this.formBuilder.group({
       firstCtrl: ['', Validators.required]
     });
-    this.senseFormGroup = this._formBuilder.group({
+    this.senseFormGroup = this.formBuilder.group({
       secondCtrl: ['', Validators.required]
     });
   }
 
   getUploadedFiles(): any[] {
-    if(this.processFiles && SharedFilesForAnalysisService.getUploadedFiles()[0] !== undefined) {
-      if(SharedFilesForAnalysisService.getUploadedFiles()[0].progress === 100) {
+    if (this.processFiles && SharedFilesForAnalysisService.getUploadedFiles()[0] !== undefined) {
+      if (SharedFilesForAnalysisService.getUploadedFiles()[0].progress === 100) {
        // SharedFilesForAnalysisService.getUploadedFiles()[0].text().then(content => console.log(content));
         this.processFiles = false;
       }
@@ -36,16 +35,17 @@ export class BasicFlowComponent implements OnInit {
     return SharedFilesForAnalysisService.getUploadedFiles();
   }
 
-  public formatLabel(value: number) {
+  public formatLabel(value: number): string {
     if (value >= 100) {
       return Math.round(value / 100) + ' words';
     }
 
-    return value;
+    return value.toString();
   }
 
   public startSenseAnalysis(text: string, window: number): void {
     console.log(SharedFilesForAnalysisService.getUploadedFiles());
-    //this._senseApiManagerService.senseAnalysis(text, window).then(result => console.log(result)).catch(error => console.log("Error: " + error));
+    // this._senseApiManagerService.senseAnalysis(text, window)
+    // .then(result => console.log(result)).catch(error => console.log("Error: " + error));
   }
 }

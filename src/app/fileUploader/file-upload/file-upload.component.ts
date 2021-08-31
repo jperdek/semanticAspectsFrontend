@@ -1,8 +1,8 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FileModel } from 'src/app/models/fileModel';
 import { SharedFilesForAnalysisService } from 'src/app/services/shared-files-for-analysis.service';
 
-//USED RESOURCE: https://github.com/progtarek/angular-drag-n-drop-directive
+// USED RESOURCE: https://github.com/progtarek/angular-drag-n-drop-directive
 @Component({
   selector: 'app-file-upload',
   templateUrl: './file-upload.component.html',
@@ -15,53 +15,53 @@ export class FileUploadComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     SharedFilesForAnalysisService.setReference(this.uploadedFiles);
   }
 
-  handleFileInput(files: FileList) {
+  public handleFileInput(files: FileList): void {
       this.filesToUpload = files;
       this.printContent(files);
 
       this.uploadFilesSimulator(0);
   }
 
-  printContent(files: FileList){
-    for(var i=0; i<this.filesToUpload.length; i++){
-      var processedFile: FileModel = this.filesToUpload.item(i) as FileModel;
+  public printContent(files: FileList): void{
+    for (let i = 0; i < this.filesToUpload.length; i++){
+      const processedFile: FileModel = this.filesToUpload.item(i) as FileModel;
       processedFile.progress = 0;
       processedFile.showed = false;
       this.uploadedFiles.push(processedFile);
       console.log(processedFile.type); // obtain type - not available
-      //console.log(processedFile.text().then(value=> { console.log(value)})); // obtain content
+      // console.log(processedFile.text().then(value=> { console.log(value)})); // obtain content
       console.log(processedFile.name); // obtain name
-      //console.log(processedFile.arrayBuffer().then(value => { console.log(value)})); // obtain buffer with data
+      // console.log(processedFile.arrayBuffer().then(value => { console.log(value)})); // obtain buffer with data
     }
   }
 
-  onFileDropped($event) {
+  public onFileDropped($event: Array<any>): void {
     this.prepareFilesList($event);
   }
 
-  fileBrowseHandler(files) {
+  public fileBrowseHandler(files: Array<any>): void {
     this.prepareFilesList(files);
   }
 
-  deleteFile(index: number) {
+  public deleteFile(index: number): void {
     if (this.uploadedFiles[index].progress < 100) {
-      console.log("Cannot delete file, because upload is in progress.");
+      console.log('Erro: Cannot delete file, because upload is in progress.');
       return;
     }
     this.uploadedFiles.splice(index, 1);
   }
 
-  uploadFilesSimulator(fileIndex: number) {
+  public uploadFilesSimulator(fileIndex: number): void {
     setTimeout(() => {
       if (fileIndex === this.uploadedFiles.length) {
         return;
       } else {
         const progressInterval = setInterval(() => {
-          if (this.uploadedFiles[fileIndex] == undefined || this.uploadedFiles[fileIndex].progress === 100) {
+          if (this.uploadedFiles[fileIndex] === undefined || this.uploadedFiles[fileIndex].progress === 100) {
             clearInterval(progressInterval);
             this.uploadFilesSimulator(fileIndex + 1);
           } else {
@@ -76,7 +76,7 @@ export class FileUploadComponent implements OnInit {
    * Convert Files list to normal array list
    * @param files (Files List)
    */
-  prepareFilesList(files: Array<any>) {
+  public prepareFilesList(files: Array<any>): void {
     for (const processedFile of files) {
       processedFile.progress = 0;
       this.uploadedFiles.push(processedFile);
@@ -85,8 +85,8 @@ export class FileUploadComponent implements OnInit {
     this.uploadFilesSimulator(0);
   }
 
-  formatBytes(bytes, decimals = 2) {
-    if (bytes === 0) return '0 Bytes';
+  private formatBytes(bytes: number, decimals = 2): string {
+    if (bytes === 0) { return '0 Bytes'; }
 
     const k = 1024;
     const dm = decimals < 0 ? 0 : decimals;

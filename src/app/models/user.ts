@@ -2,10 +2,10 @@ import { Role } from './role';
 
 export class UserRole {
   role: Role;
-  
+
   constructor(){
       this.role = Role.Guest;
-  } 
+  }
 }
 
 export interface User {

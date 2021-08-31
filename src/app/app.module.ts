@@ -38,7 +38,7 @@ const oktaConfig = {
   clientId: '0oa19wfjhrBoVLqSw5d7',
   redirectUri: window.location.origin + '/lcallback',
   scope: 'openid profile email'
-}
+};
 
 @NgModule({
   declarations: [
@@ -67,7 +67,7 @@ const oktaConfig = {
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    StoreModule.forRoot(reducers), 
+    StoreModule.forRoot(reducers),
     EffectsModule.forRoot([AppEffects]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     StoreRouterConnectingModule.forRoot(),
