@@ -1,0 +1,44 @@
+.methodForFileDecision {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.spacer {
+  flex: 1 1 auto;
+  padding-top: 16px;
+  border-bottom: 1px dotted silver;
+}
+
+.additional-som-settings-content {
+  display: block;
+  margin-top: 20px;
+  margin-left: 40px;
+}
+
+.main-settings-som-content {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.som-chooser-radio-group {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+  margin-left: 25px;
+}
+
+.additional-som-group-label {
+  font-weight: bold;
+}
+
+.som-radio-button {
+  margin: 5px;
+}

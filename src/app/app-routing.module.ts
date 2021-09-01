@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CategoryObserverComponent } from './category-observer/category-observer.component';
-import { LoginComponent } from './login/login.component';
+import { CategoryObserverComponent } from './pages/category-observer/category-observer.component';
+import { LoginComponent } from './pages/login/login.component';
 import { Role } from './models/role';
-import { RegisterComponent } from './register/register.component';
+import { RegisterComponent } from './pages/register/register.component';
 import { OktaCallbackComponent, OktaAuthGuard } from '@okta/okta-angular';
-import { SenseAnalysisComponent } from './sense-analysis/sense-analysis.component';
-import { SegmentationAnalysisComponent } from './segmentation-analysis/segmentation-analysis.component';
+import { SenseAnalysisComponent } from './pages/sense-analysis/sense-analysis.component';
+import { SegmentationAnalysisComponent } from './pages/segmentation-analysis/segmentation-analysis.component';
 
 const oktaConfig = {
   issuer: 'https://dev-03853854.okta.com',

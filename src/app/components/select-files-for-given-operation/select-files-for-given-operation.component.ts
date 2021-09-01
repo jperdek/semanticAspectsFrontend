@@ -1,6 +1,6 @@
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
-import { FileModel } from '../models/fileModel';
+import { FileModel } from '../../models/fileModel';
 
 @Component({
   selector: 'app-select-files-for-given-operation',

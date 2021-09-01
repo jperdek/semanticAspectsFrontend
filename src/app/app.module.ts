@@ -5,10 +5,10 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { MenuComponent } from './menu/menu.component';
-import { NavigationComponent } from './navigation/navigation.component';
-import { FooterComponent } from './footer/footer.component';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
+import { NavigationComponent } from './components/navigation/navigation.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { LoginComponent } from './pages/login/login.component';
+import { RegisterComponent } from './pages/register/register.component';
 import { MaterialModule } from './material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -22,16 +22,17 @@ import { AppEffects } from './effects/app.effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { FileUploadComponent } from './fileUploader/file-upload/file-upload.component';
-import { CategoryObserverComponent } from './category-observer/category-observer.component';
-import { DragAndDropDirective } from './fileUploader/drag-and-drop.directive';
-import { ProgressComponent } from './progress/progress.component';
-import { BasicFlowComponent } from './basic-flow/basic-flow.component';
+import { CategoryObserverComponent } from './pages/category-observer/category-observer.component';
+import { ProgressComponent } from './components/progress/progress.component';
+import { BasicFlowComponent } from './pages/basic-flow/basic-flow.component';
 import { OktaAuthModule, OKTA_CONFIG } from '@okta/okta-angular';
-import { SenseAnalysisComponent } from './sense-analysis/sense-analysis.component';
-import { SegmentationMethodChooserComponent } from './segmentation-method-chooser/segmentation-method-chooser.component';
-import { SegmentationAnalysisComponent } from './segmentation-analysis/segmentation-analysis.component';
-import { FileOrInputComponent } from './file-or-input/file-or-input.component';
-import { SelectFilesForGivenOperationComponent } from './select-files-for-given-operation/select-files-for-given-operation.component';
+import { SenseAnalysisComponent } from './pages/sense-analysis/sense-analysis.component';
+import { SegmentationAnalysisComponent } from './pages/segmentation-analysis/segmentation-analysis.component';
+import { FileOrInputComponent } from './components/file-or-input/file-or-input.component';
+import { SelectFilesForGivenOperationComponent } from './components/select-files-for-given-operation/select-files-for-given-operation.component';
+import { SomExtractorComponent } from './components/som-extractor/som-extractor.component';
+import { SelectFilesForSOMComponent } from './components/select-files-for-som/select-files-for-som.component';
+import { DragAndDropDirective } from './directives/drag-and-drop.directive';
 
 const oktaConfig = {
   issuer: 'https://dev-03853854.okta.com',
@@ -54,10 +55,11 @@ const oktaConfig = {
     ProgressComponent,
     BasicFlowComponent,
     SenseAnalysisComponent,
-    SegmentationMethodChooserComponent,
     SegmentationAnalysisComponent,
     FileOrInputComponent,
-    SelectFilesForGivenOperationComponent
+    SelectFilesForGivenOperationComponent,
+    SomExtractorComponent,
+    SelectFilesForSOMComponent
   ],
   imports: [
     BrowserModule,

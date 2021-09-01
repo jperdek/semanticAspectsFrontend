@@ -7,7 +7,9 @@ import { AuthManagerService } from '../authentification/auth-manager.service';
 })
 export class BasicSegmentationMethodsService {
 
-  private cetdApiPart = '/segmentationAnalysis/CETD/';
+  private readonly cetdApiPart = '/segmentationAnalysis/CETD/';
+  private readonly textApiPart = '/segmentationAnalysis/text';
+
   constructor(private authManagerService: AuthManagerService) { }
 
   public cetdExtractor(content: string, methods: string[]): Promise<any> {
@@ -18,5 +20,11 @@ export class BasicSegmentationMethodsService {
     } else {
       return this.authManagerService.perform('post', this.cetdApiPart + methods.toString(), httpParameters, content);
     }
+  }
+
+  public textExtractor(content: string): Promise<any> {
+    const httpParameters = new HttpParams();
+
+    return this.authManagerService.perform('post', this.textApiPart, httpParameters, content);
   }
 }

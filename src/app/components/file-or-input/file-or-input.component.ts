@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FileModel } from '../models/fileModel';
+import { FileModel } from '../../models/fileModel';
 
 @Component({
   selector: 'app-file-or-input',

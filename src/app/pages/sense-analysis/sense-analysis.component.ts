@@ -4,8 +4,8 @@ import { Sort } from '@angular/material/sort';
 import { from } from 'rxjs';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { SenseRating, SenseResult } from '../models/senseRating';
-import { SenseApiManagerService } from '../services/senseAnalysis/sense-api-manager.service';
+import { SenseRating, SenseResult } from '../../models/senseRating';
+import { SenseApiManagerService } from '../../services/senseAnalysis/sense-api-manager.service';
 
 
 @Component({

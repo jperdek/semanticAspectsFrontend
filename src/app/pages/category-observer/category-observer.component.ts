@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ReadabilityAnalysisService } from '../semanticAspects/readability/readability-analysis.service';
+import { ReadabilityAnalysisService } from '../../semanticAspects/readability/readability-analysis.service';
 
 @Component({
   selector: 'app-category-observer',

@@ -1,0 +1,20 @@
+.somTemplateContentField {
+  width: 100%;
+  min-height: 8rem;
+}
+
+.recordContentField {
+  border: 2px solid silver;
+  min-height: 8rem;
+}
+
+.recordContentField:hover {
+  border: 2px solid grey;
+}
+
+.sub-heading {
+  display: block;
+  font-weight: bold;
+  margin-top: 16px;
+  margin-bottom: 8px;
+}
