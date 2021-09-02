@@ -36,7 +36,7 @@ export class FileOrInputComponent implements OnInit {
         textResult: this.addFileFormGroup.controls.recordFormControl.value,
         appliedSegmentation: false,
         segmentationMethod: 'None',
-        disallowedMethods: {},
+        disallowedMethods: [],
         progress: 100,
         showed: false,
         size: 1,
@@ -45,7 +45,8 @@ export class FileOrInputComponent implements OnInit {
         stream: null,
         arrayBuffer: null,
         slice: null,
-        text: null
+        text: null,
+        somSettings: undefined,
       };
 
       this.files.push(fileModel);
@@ -73,7 +74,7 @@ export class FileOrInputComponent implements OnInit {
       textResult: content,
       appliedSegmentation: fileModel.appliedSegmentation,
       segmentationMethod: fileModel.segmentationMethod,
-      disallowedMethods: {},
+      disallowedMethods: [],
       progress: 100,
       showed: false,
       size: 1,
@@ -82,7 +83,8 @@ export class FileOrInputComponent implements OnInit {
       stream: null,
       arrayBuffer: null,
       slice: null,
-      text: null
+      text: null,
+      somSettings: undefined
     };
 
     $event.preventDefault();

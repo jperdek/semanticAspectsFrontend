@@ -1,5 +1,6 @@
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 import { FileModel } from '../../models/fileModel';
 
 @Component({
@@ -16,5 +17,14 @@ export class SelectFilesForGivenOperationComponent {
   segmentation: boolean;
 
   @Input()
-  segmentationMethodName: FileModel[];
+  segmentationMethodName: string;
+
+  public updateApply($event: MatCheckboxChange, fileModel: FileModel): void {
+    if ($event.checked === false && !fileModel.disallowedMethods.includes(this.segmentationMethodName)) {
+      fileModel.disallowedMethods.push(this.segmentationMethodName);
+    }
+    else {
+      fileModel.disallowedMethods = fileModel.disallowedMethods.filter(element => element !== this.segmentationMethodName);
+    }
+  }
 }

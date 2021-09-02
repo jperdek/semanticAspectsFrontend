@@ -26,6 +26,10 @@ export class SomExtractorComponent implements OnInit {
     if (this.somTemplateFormGroup.valid) {
       if (this.somTemplateFile !== undefined) {
         this.somTemplateFile.textResult = this.somTemplateFormGroup.controls.somTemplateFormControl.value;
+        if (this.somTemplateFile.textResult === '') {
+          this.somTemplateFile.textResult = undefined;
+        }
+        console.log(this.somTemplateFile);
       } else {
         console.log('Error: som template is undefined!');
       }

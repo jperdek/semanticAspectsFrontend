@@ -28,10 +28,9 @@ export class SomSegmentationMethodService {
     return this.authManagerService.perform('post', this.somApiPart + this.updateSOM, httpParameters, templateFileContent);
   }
 
-  public extractFromSOMTree(content: string): Promise<any> {
-    const httpParameters = new HttpParams();
-
-    return this.authManagerService.perform('post', this.somApiPart + this.extractSOM, httpParameters, content);
+  public extractFromSOMTree(templateContent: string, acceptPercentage: number): Promise<any> {
+    const httpParameters = new HttpParams().set('accept_percentage', acceptPercentage.toString());
+    return this.authManagerService.perform('post', this.somApiPart + this.extractSOM, httpParameters, templateContent);
   }
 
   public mergeFilesWithTemplate(filesContent: string, templateContent: string): string {
@@ -42,13 +41,16 @@ export class SomSegmentationMethodService {
     return filesContent + '\n<----------DIVISION_OF_MANY_PAGES----------->\n' + fileContent;
   }
 
-  public mergeContentFiles(files: FileModel[]): string {
+  public mergeContentFiles(files: FileModel[], contentType: string): string {
     let finalContent = null;
     files.forEach(file => {
-      if (finalContent === null) {
-        finalContent = file.textResult;
-      } else {
-        finalContent = this.mergeFileWithFileContent(file.textResult, finalContent);
+      if (!file.disallowedMethods.includes('SOM')
+      && (file.somSettings === undefined || file.somSettings.usageType === contentType)){
+        if (finalContent === null) {
+          finalContent = file.textResult;
+        } else {
+          finalContent = this.mergeFileWithFileContent(file.textResult, finalContent);
+        }
       }
     });
     return finalContent;

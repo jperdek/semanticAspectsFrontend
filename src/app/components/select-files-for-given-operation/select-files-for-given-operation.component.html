@@ -3,6 +3,7 @@
     <div *ngFor="let loadedFile of files; let index = index" class="methodForFileDecision">
         <span>{{ loadedFile.name }}</span>
         <span class="spacer"></span>
-        <mat-checkbox class="isHtmlField" checked="true">Apply {{ segmentationMethodName }} segmentation</mat-checkbox>
+        <mat-checkbox matInput class="isHtmlField" checked="true" 
+        (change)="updateApply($event, loadedFile)">Apply {{ segmentationMethodName }} segmentation</mat-checkbox>
     </div>
 </div>
