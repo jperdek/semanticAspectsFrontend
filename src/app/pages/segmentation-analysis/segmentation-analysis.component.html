@@ -19,9 +19,9 @@
                         <mat-checkbox formControlName="cetdEdgareMethod" name="CETDEdgare" class="checkboxField" checked="true">Edgare extractor</mat-checkbox>
                         <mat-checkbox formControlName="cetdVariantMethod" name="CETDVariant" class="checkboxField" checked="true">Variant extractor</mat-checkbox>
                     </div>
-                    <button class="addContentToRecords" color="accent" aria-label="submit text" type="submit">
-                        <mat-icon class="addTextToRecord">add_circle_outline</mat-icon>
-                        <span class="addTextToRecordText">Apply cetd segmentation on files</span>
+                    <button class="add-content-to-records" color="accent" aria-label="submit text" type="submit">
+                        <mat-icon class="add-text-to-record">add_circle_outline</mat-icon>
+                        <span class="add-text-to-record-text">Apply cetd segmentation on files</span>
                     </button>
                 </form>
             </div>
@@ -37,11 +37,12 @@
                         
                 </mat-panel-description>
             </mat-expansion-panel-header>
-            <app-som-extractor></app-som-extractor>
+            <app-som-extractor [somTemplateFile]="somTemplateFileReference"></app-som-extractor>
             <app-select-files-for-som [files]="files" [segmentation]="true" segmentationMethodName="SOM_tree"></app-select-files-for-som>
-            <button class="addContentToRecords" color="accent" aria-label="submit text" type="submit">
-                <mat-icon class="addTextToRecord">add_circle_outline</mat-icon>
-                <span class="addTextToRecordText">Apply cetd segmentation on files</span>
+            <button class="add-content-to-records" color="accent" aria-label="submit text" 
+            type="button" (click)="useSOMSegmentation()">
+                <mat-icon class="add-text-to-record">add_circle_outline</mat-icon>
+                <span class="add-text-to-record-text">Apply SOM segmentation on files</span>
             </button>
         </mat-expansion-panel>
         <mat-expansion-panel>
@@ -56,10 +57,9 @@
                 </mat-panel-description>
             </mat-expansion-panel-header>
             <app-select-files-for-given-operation [files]="files" [segmentation]="true" segmentationMethodName="all_text"></app-select-files-for-given-operation>
-            <button class="addContentToRecords" color="accent" aria-label="submit text"
-            type="button" (click)="useTextSegmentation()">
-                <mat-icon class="addTextToRecord">add_circle_outline</mat-icon>
-                <span class="addTextToRecordText">Apply cetd segmentation on files</span>
+            <button class="add-content-to-records" color="accent" aria-label="submit text" type="button" (click)="useTextSegmentation()">
+                <mat-icon class="add-text-to-record">add_circle_outline</mat-icon>
+                <span class="add-text-to-record-text">Apply cetd segmentation on files</span>
             </button>
         </mat-expansion-panel>
     </mat-accordion>

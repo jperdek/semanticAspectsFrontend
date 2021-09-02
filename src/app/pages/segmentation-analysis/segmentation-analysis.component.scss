@@ -8,18 +8,18 @@
   margin-left: 32px;
 }
 
-.addContentToRecords {
+.add-content-to-records {
   display: flex;
   float: right;
   align-items: center;
   align-content: center;
   border-radius: 25px;
   height: 2.5rem;
-}
 
-.addTextToRecordText {
-  display: block;
-  text-align: right;
-  word-wrap: break-word;
-  margin-left: 16px;
+  .add-text-to-record {
+    display: block;
+    text-align: right;
+    word-wrap: break-word;
+    margin-left: 16px;
+  }
 }

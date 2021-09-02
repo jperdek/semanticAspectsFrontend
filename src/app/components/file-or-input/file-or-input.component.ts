@@ -5,7 +5,7 @@ import { FileModel } from '../../models/fileModel';
 @Component({
   selector: 'app-file-or-input',
   templateUrl: './file-or-input.component.html',
-  styleUrls: ['./file-or-input.component.css']
+  styleUrls: ['./file-or-input.component.scss']
 })
 export class FileOrInputComponent implements OnInit {
 

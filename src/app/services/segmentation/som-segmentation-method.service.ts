@@ -1,5 +1,6 @@
 import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { FileModel } from 'src/app/models/fileModel';
 import { AuthManagerService } from '../authentification/auth-manager.service';
 
 @Injectable({
@@ -21,9 +22,9 @@ export class SomSegmentationMethodService {
     return this.authManagerService.perform('post', this.somApiPart + this.createSOM, httpParameters, content);
   }
 
-  public updateSOMTree(templateFileContent: string): Promise<any> {
+  public updateSOMTree(filesContent: string, templateContent: string): Promise<any> {
     const httpParameters = new HttpParams();
-
+    const templateFileContent = this.mergeFilesWithTemplate(filesContent, templateContent);
     return this.authManagerService.perform('post', this.somApiPart + this.updateSOM, httpParameters, templateFileContent);
   }
 
@@ -31,5 +32,25 @@ export class SomSegmentationMethodService {
     const httpParameters = new HttpParams();
 
     return this.authManagerService.perform('post', this.somApiPart + this.extractSOM, httpParameters, content);
+  }
+
+  public mergeFilesWithTemplate(filesContent: string, templateContent: string): string {
+    return filesContent + '\n<----------DIVISION_OF_MANY_PAGES_AND_SOM_THREE----------->\n' + templateContent;
+  }
+
+  public mergeFileWithFileContent(filesContent: string, fileContent: string): string {
+    return filesContent + '\n<----------DIVISION_OF_MANY_PAGES----------->\n' + fileContent;
+  }
+
+  public mergeContentFiles(files: FileModel[]): string {
+    let finalContent = null;
+    files.forEach(file => {
+      if (finalContent === null) {
+        finalContent = file.textResult;
+      } else {
+        finalContent = this.mergeFileWithFileContent(file.textResult, finalContent);
+      }
+    });
+    return finalContent;
   }
 }

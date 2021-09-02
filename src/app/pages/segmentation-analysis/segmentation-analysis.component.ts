@@ -1,23 +1,42 @@
 import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { SomSegmentationMethodService } from 'src/app/services/segmentation/som-segmentation-method.service';
 import { FileModel } from '../../models/fileModel';
 import { BasicSegmentationMethodsService } from '../../services/segmentation/basic-segmentation-methods.service';
 
 @Component({
   selector: 'app-segmentation-analysis',
   templateUrl: './segmentation-analysis.component.html',
-  styleUrls: ['./segmentation-analysis.component.css']
+  styleUrls: ['./segmentation-analysis.component.scss']
 })
 export class SegmentationAnalysisComponent {
 
   @Input()
   files: FileModel[];
 
+  somTemplateFileReference: FileModel = {
+    progress: 100,
+    showed: true,
+    textResult: undefined,
+    appliedSegmentation: true,
+    segmentationMethod: 'None',
+    disallowedMethods: {},
+    name: 'somTemplate',
+    size: 1,
+    type: 'text/plain',
+    lastModified: Date.now().valueOf(),
+    stream: null,
+    arrayBuffer: null,
+    slice: null,
+    text: null
+  };
+
   cetdFormGroup: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
-    private basicSegmentationMethodsService: BasicSegmentationMethodsService) {
+    private basicSegmentationMethodsService: BasicSegmentationMethodsService,
+    private somSegmentationMethod: SomSegmentationMethodService) {
     this.cetdFormGroup = this.formBuilder.group({
       cetdNormalMethod: ['', ],
       cetdEdgareMethod: ['', ],
@@ -52,6 +71,19 @@ export class SegmentationAnalysisComponent {
         file.textResult = JSON.stringify(result);
         console.log(result);
       }).catch(error => console.log('Error occured during text analysis: ' + error));
+    }
+  }
+
+  public useSOMSegmentation(): void {
+    const mergedFiles = this.somSegmentationMethod.mergeContentFiles(this.files);
+    if (this.somTemplateFileReference.textResult === undefined) {
+      this.somSegmentationMethod.createSOMTree(mergedFiles).then(result => {
+        console.log(result);
+      }).catch(error => console.log('Error occured during SOM segmentation analysis: ' + error));
+    } else {
+      this.somSegmentationMethod.updateSOMTree(mergedFiles, this.somTemplateFileReference.textResult).then(result => {
+        console.log(result);
+      }).catch(error => console.log('Error occured during SOM segmentation analysis: ' + error));
     }
   }
 }

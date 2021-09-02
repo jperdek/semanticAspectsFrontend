@@ -1,9 +1,9 @@
 <div class="fileOrInputBlock">
-  <div class="loadedFilesWrapper">
+  <div class="loaded-files-wrapper">
     <h1 class="main-heading" *ngIf="files.length != 0">Loaded or inserted files</h1>
-    <ng-container *ngFor="let loadedFile of files; let index = index" class="wholeLoadedFilesBlock">
-      <mat-divider class="dividerBlock">{{index}}</mat-divider>
-      <div class="loadedFileBlock">
+    <ng-container *ngFor="let loadedFile of files; let index = index" class="whole-loaded-files-block">
+      <mat-divider class="divider-block">{{index}}</mat-divider>
+      <div class="loaded-file-block">
         <form  (ngSubmit)="updateRecord($event, index, loadedFile)">
           <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Record name</mat-label>
@@ -16,15 +16,15 @@
             <mat-icon>visibility</mat-icon>
           </button>
 
-          <div class="fileContentField" appearance="outline">
+          <div class="file-content-field" appearance="outline">
             <mat-label class="sub-heading">Record content</mat-label>
-            <textarea class="recordContentField" matInput name="recordContent{{index}}" placeholder="Ex. <html><head></head><body>" *ngIf="loadedFile.showed">{{ loadedFile.textResult }}</textarea>
+            <textarea class="record-content-field" matInput name="recordContent{{index}}" placeholder="Ex. <html><head></head><body>" *ngIf="loadedFile.showed">{{ loadedFile.textResult }}</textarea>
           </div>
 
-          <mat-checkbox name="updateIsHtml{{index}}" class="isHtmlField">Is HTML</mat-checkbox>
+          <mat-checkbox name="updateIsHtml{{index}}" class="is-html-field">Is HTML</mat-checkbox>
 
-          <span class="updateExtractedInformationSpan">
-            <button class="updateExtractedInformationButton" mat-icon-button color="primary" aria-label="submit text" type="submit">
+          <span class="update-extracted-information-span">
+            <button class="update-extracted-information-button" mat-icon-button color="primary" aria-label="submit text" type="submit">
               <mat-icon>update</mat-icon>
               Update extracted information
             </button>
@@ -33,7 +33,7 @@
       </div>  
     </ng-container>
   </div>
-  <div class="addFileWrapper">
+  <div class="add-file-wrapper">
     <h1 class="main-heading">Insert file content</h1>
     <form [formGroup]="addFileFormGroup" class="example-form" (ngSubmit)="addRecordToRecords($event)">
         <mat-form-field class="example-full-width" appearance="fill">
@@ -41,17 +41,17 @@
           <input name="setRecordName" formControlName="recordNameFormControl" matInput placeholder="Ex. ecommerce.txt" value="Sushi">
         </mat-form-field>
       
-        <div class="example-full-width" appearance="outline">
+        <div class="file-content-field" appearance="outline">
           <mat-label class="sub-heading">Record content</mat-label>
-          <textarea class="recordContentField" name="setRecordContent" formControlName="recordFormControl" matInput placeholder="Ex. <html><head></head><body>"></textarea>
+          <textarea class="record-content-field" name="setRecordContent" formControlName="recordFormControl" matInput placeholder="Ex. <html><head></head><body>"></textarea>
           </div>
 
-        <mat-checkbox formControlName="isHtmlFormControl" class="isHtmlField">Is HTML</mat-checkbox>
+        <mat-checkbox formControlName="isHtmlFormControl" class="is-html-field">Is HTML</mat-checkbox>
         
-        <div class="addTextToRecordButtonBlock">
-          <button class="addContentToRecords" color="accent" aria-label="submit text" type="submit">
-            <mat-icon class="addTextToRecord">add_circle_outline</mat-icon>
-            <span class="addTextToRecordText">Add content to loaded contents</span>
+        <div class="add-text-to-record-button-block">
+          <button class="add-content-to-records" color="accent" aria-label="submit text" type="submit">
+            <mat-icon class="add-text-to-record">add_circle_outline</mat-icon>
+            <span class="add-text-to-record-text">Add content to loaded contents</span>
           </button>
         </div>
     </form>
