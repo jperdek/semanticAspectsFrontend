@@ -9,7 +9,6 @@
     <mat-card-content>
       <form [formGroup]="senseFormGroup" (ngSubmit)="onSubmit($event)">
           <div class="fullTextPanel" appearance="fill">
-            <mat-label>Text for analysis</mat-label>
             <textarea class="inputTextSenseAnalysis" matInput
               formControlName="textAreaFormControl"
               placeholder="Ex. This text is good to process for many reasons"></textarea>
