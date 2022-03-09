@@ -7,6 +7,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { OktaCallbackComponent, OktaAuthGuard } from '@okta/okta-angular';
 import { SenseAnalysisComponent } from './pages/sense-analysis/sense-analysis.component';
 import { SegmentationAnalysisComponent } from './pages/segmentation-analysis/segmentation-analysis.component';
+import { AutomatizationComponent } from './pages/automatization/automatization.component';
 
 const oktaConfig = {
   issuer: 'https://dev-03853854.okta.com',
@@ -43,6 +44,24 @@ const routes: Routes = [
       {
         path: 'senseAnalysis',
         component: SenseAnalysisComponent
+      }
+    ]
+  },
+  {
+    path: 'automatization',
+    //canLoad: [OktaAuthGuard],
+    //canActivate: [OktaAuthGuard],
+    data: {
+      roles: [
+        Role.Admin,
+        Role.User,
+        Role.Guest
+      ]
+    },
+    children: [
+      {
+        path: '',
+        component: AutomatizationComponent
       }
     ]
   },

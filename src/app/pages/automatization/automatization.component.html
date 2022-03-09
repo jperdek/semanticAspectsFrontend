@@ -1,0 +1,59 @@
+<mat-tab-group>
+  <mat-tab label="Files insertion"> 
+    <mat-vertical-stepper [linear]="isLinear" #stepper>
+      <mat-step [stepControl]="fileFormGroup">
+          <form [formGroup]="fileFormGroup" method="post" action="" enctype="multipart/form-data" class="form-group">
+            <ng-template matStepLabel>Insert files for analysis</ng-template>
+            <app-file-upload>
+            </app-file-upload>
+          </form>
+          <app-file-or-input [files]="getUploadedFiles()"></app-file-or-input>
+      </mat-step>
+      
+      <mat-step>
+        <ng-template matStepLabel>Start analysis</ng-template>
+        <p>Start nalysis</p>
+          <button mat-button (click)="applyAutomatization()">Analyze</button>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button (click)="stepper.reset()">Reset</button>
+        </div>
+      </mat-step>
+    </mat-vertical-stepper>
+  </mat-tab>
+  <mat-tab label="{{automatizationResult.fileName}}" *ngFor="let automatizationResult of automatizationResults">
+    <div class="main-category-block" *ngIf="automatizationResult.category">
+      <div class="main-category-heading">Main category:</div>
+      <div class="main-category-heading main-category-heading-category">{{automatizationResult.category}}</div>
+    </div>
+
+    <mat-accordion>
+      <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Analysis results
+          </mat-panel-title>
+          <mat-panel-description>
+            Collected content based on file
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div [innerHTML]="automatizationResult.analyzed_text | sanitizeHtml"></div>
+      </mat-expansion-panel>
+      <mat-expansion-panel (opened)="panelOpenState = true"
+                           (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+          <mat-panel-title>
+            Identified categories
+          </mat-panel-title>
+          <mat-panel-description>
+            Abstractly describes content, mainly from sense analysis
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <app-automatization-result-visualization [automatizationResult]="automatizationResult">
+        </app-automatization-result-visualization>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </mat-tab>
+</mat-tab-group>
+
+

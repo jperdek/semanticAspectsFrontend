@@ -9,6 +9,25 @@
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    .relevant-word {
+      display: inline !important;
+      font-weight: bold;
+    }
+    
+    .relevant-word:hover:after {
+      content: attr(score);
+      padding: 4px 8px;
+      color: black;
+      background-color: white;
+      position: absolute;
+      left: 0;
+      top: 100%;
+      z-index: 10;
+      border: 1px black solid;
+      box-shadow: 0 0 3px #ccc;
+    }
+  </style>
 </head>
 <body>
   <app-root></app-root>

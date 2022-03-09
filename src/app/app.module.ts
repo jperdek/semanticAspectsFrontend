@@ -33,6 +33,10 @@ import { SelectFilesForGivenOperationComponent } from './components/select-files
 import { SomExtractorComponent } from './components/som-extractor/som-extractor.component';
 import { SelectFilesForSOMComponent } from './components/select-files-for-som/select-files-for-som.component';
 import { DragAndDropDirective } from './directives/drag-and-drop.directive';
+import { AutomatizationComponent } from './pages/automatization/automatization.component';
+import { CapturedResultComponent } from './captured-result/captured-result.component';
+import { AutomatizationResultVisualizationComponent } from './components/automatization-result-visualization/automatization-result-visualization.component';
+import { SafeHtmlPipe } from './pipes/domSanitize';
 
 const oktaConfig = {
   issuer: 'https://dev-03853854.okta.com',
@@ -59,7 +63,11 @@ const oktaConfig = {
     FileOrInputComponent,
     SelectFilesForGivenOperationComponent,
     SomExtractorComponent,
-    SelectFilesForSOMComponent
+    SelectFilesForSOMComponent,
+    AutomatizationComponent,
+    CapturedResultComponent,
+    AutomatizationResultVisualizationComponent,
+    SafeHtmlPipe
   ],
   imports: [
     BrowserModule,
