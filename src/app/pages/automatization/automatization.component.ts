@@ -91,10 +91,10 @@ export class AutomatizationComponent implements OnInit {
     return maxScore;
   }
 
-  public scoreOnSlideChange(threshold: number, automatizationResult: AutomatizationResult): void {
+  public scoreOnSlideChange1(threshold: number, automatizationResult: AutomatizationResult): void {
     let finalString = '';
     const tagParts = automatizationResult.analyzed_text.match(
-      /[^<]+<\s*p\s+score=[\"\'][^\"\']+[\"\']\s+class=[\"\'][^\"\']+[\"\']\s*>[^<]+<\s*\/p\s*>/g);
+      /([^<])+<\s*p\s+score=[\"\'][^\"\']+[\"\']\s+class=[\"\'][^\"\']+[\"\']\s*>[^<]+<\s*\/p\s*>/g);
     console.log(tagParts);
     for (const tagPart of tagParts){
         const score = Number(tagPart.split('score="')[1].split('"')[0]);
@@ -106,5 +106,23 @@ export class AutomatizationComponent implements OnInit {
         }
     }
     automatizationResult.analyzed_text = finalString;
+  }
+
+  public scoreOnSlideChange(threshold: number, automatizationResult: AutomatizationResult): void {
+    const domParser = new DOMParser();
+    const htmlElement = domParser.parseFromString('<div id="DOMWRAP">' + automatizationResult.analyzed_text + '</div>', 'text/html');
+    const relevantElements = htmlElement.getElementsByClassName('relevant-word');
+
+    Array.from(relevantElements).forEach((relevantElement: Element) => {
+        const score = Number(relevantElement.getAttribute('score'));
+        if (score >= threshold) {
+          relevantElement.classList.add('chosen-relevant-word');
+          relevantElement.classList.remove('deny-relevant-word');
+        } else {
+          relevantElement.classList.add('deny-relevant-word');
+          relevantElement.classList.remove('chosen-relevant-word');
+        }
+    });
+    automatizationResult.analyzed_text = htmlElement.getElementById('DOMWRAP').innerHTML;
   }
 }
