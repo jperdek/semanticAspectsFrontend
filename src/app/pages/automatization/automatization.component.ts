@@ -62,4 +62,49 @@ export class AutomatizationComponent implements OnInit {
         });
       }
   }
+
+  public formatScoreLabel(value: number): number {
+    return value;
+  }
+
+  public getMinScore(text: string): number {
+    let minScore = 10000000;
+    const scores = text.match(/score=([\"\'][^\"\']+[\"\'])/g);
+    for (const scoreString of scores){
+        const score = Number(scoreString.split('"')[1]);
+        if (minScore > score) {
+            minScore = score;
+        }
+    }
+    return minScore;
+  }
+
+  public getMaxScore(text: string): number {
+    let maxScore = 0;
+    const scores = text.match(/score=([\"\'][^\"\']+[\"\'])/g);
+    for (const scoreString of scores){
+        const score = Number(scoreString.split('"')[1]);
+        if (maxScore < score) {
+            maxScore = score;
+        }
+    }
+    return maxScore;
+  }
+
+  public scoreOnSlideChange(threshold: number, automatizationResult: AutomatizationResult): void {
+    let finalString = '';
+    const tagParts = automatizationResult.analyzed_text.match(
+      /[^<]+<\s*p\s+score=[\"\'][^\"\']+[\"\']\s+class=[\"\'][^\"\']+[\"\']\s*>[^<]+<\s*\/p\s*>/g);
+    console.log(tagParts);
+    for (const tagPart of tagParts){
+        const score = Number(tagPart.split('score="')[1].split('"')[0]);
+        console.log(tagPart);
+        if (score >= threshold) {
+            finalString = finalString + tagPart.replace(/class=[\"\'][^\"\']+[\"\']/, 'class="relevant-word chosen-relevant-word"');
+        } else {
+          finalString = finalString + tagPart.replace(/class=[\"\'][^\"\']+[\"\']/, 'class="relevant-word deny-relevant-word"');
+        }
+    }
+    automatizationResult.analyzed_text = finalString;
+  }
 }

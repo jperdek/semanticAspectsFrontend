@@ -37,6 +37,8 @@ import { AutomatizationComponent } from './pages/automatization/automatization.c
 import { CapturedResultComponent } from './captured-result/captured-result.component';
 import { AutomatizationResultVisualizationComponent } from './components/automatization-result-visualization/automatization-result-visualization.component';
 import { SafeHtmlPipe } from './pipes/domSanitize';
+import { TableCategoriesVisualizationComponent } from './components/table-categories-visualization/table-categories-visualization.component';
+import { TableClustersVisualizationComponent } from './components/table-clusters-visualization/table-clusters-visualization.component';
 
 const oktaConfig = {
   issuer: 'https://dev-03853854.okta.com',
@@ -67,7 +69,9 @@ const oktaConfig = {
     AutomatizationComponent,
     CapturedResultComponent,
     AutomatizationResultVisualizationComponent,
-    SafeHtmlPipe
+    SafeHtmlPipe,
+    TableCategoriesVisualizationComponent,
+    TableClustersVisualizationComponent
   ],
   imports: [
     BrowserModule,

@@ -1,3 +1,4 @@
+
 <mat-tab-group>
   <mat-tab label="Files insertion"> 
     <mat-vertical-stepper [linear]="isLinear" #stepper>
@@ -38,6 +39,18 @@
           </mat-panel-description>
         </mat-expansion-panel-header>
         <div [innerHTML]="automatizationResult.analyzed_text | sanitizeHtml"></div>
+        <mat-slider #scoreThreshold
+            thumbLabel
+            [displayWith]="formatScoreLabel"
+            tickInterval="1000"
+            step="0.01"
+            [min]="getMinScore(automatizationResult.analyzed_text)"
+            [max]="getMaxScore(automatizationResult.analyzed_text)"
+            (slideend)="scoreOnSlideChange(scoreThreshold.value, automatizationResult)"
+            (pointerup)="scoreOnSlideChange(scoreThreshold.value, automatizationResult)"
+            aria-label="units">
+        </mat-slider>
+
       </mat-expansion-panel>
       <mat-expansion-panel (opened)="panelOpenState = true"
                            (closed)="panelOpenState = false">
@@ -49,8 +62,23 @@
             Abstractly describes content, mainly from sense analysis
           </mat-panel-description>
         </mat-expansion-panel-header>
-        <app-automatization-result-visualization [automatizationResult]="automatizationResult">
-        </app-automatization-result-visualization>
+        <app-table-categories-visualization [categoryRating]="automatizationResult.categories_with_scores">
+        </app-table-categories-visualization>
+      </mat-expansion-panel>
+      <mat-expansion-panel (opened)="panelOpenState = true"
+                           (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+          <mat-panel-title>
+            Identified clusters
+          </mat-panel-title>
+          <mat-panel-description>
+            Shows main representant of clusters with identified members
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <app-table-clusters-visualization 
+          [categoryRating]="automatizationResult.concepts_with_scores" 
+          [mappings]="automatizationResult.mappings">
+        </app-table-clusters-visualization>
       </mat-expansion-panel>
     </mat-accordion>
   </mat-tab>

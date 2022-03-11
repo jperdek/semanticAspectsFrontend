@@ -23,21 +23,3 @@
     margin-left: 48px;
   }
 }
-
-.relevant-word {
-  display: inline !important;
-  font-weight: bold;
-}
-
-.relevant-word:hover:after {
-  content: attr(score);
-  padding: 4px 8px;
-  color: black;
-  background-color: white;
-  position: absolute;
-  left: 0;
-  top: 100%;
-  z-index: 10;
-  border: 1px black solid;
-  box-shadow: 0 0 3px #ccc;
-}

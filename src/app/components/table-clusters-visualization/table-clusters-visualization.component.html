@@ -1,0 +1,29 @@
+<div class="visualization-component">
+    <mat-card class="senseAnalysisResult" *ngIf="categoryRating">
+        <table matSort (matSortChange)="sortedData = sortData($event, categoryRating)">
+            <tr>
+            <th mat-sort-header="category">Category</th>
+            <th mat-sort-header="value">Rating</th>
+            </tr>
+            <ng-container *ngFor="let result of (sortedData === undefined)? categoryRating: sortedData; let index = index">
+                <tr>
+                    <td>{{result.category}}</td>
+                    <td>{{result.value}}</td>
+                    <td><button (click)=" switchMappingVisibility(index)">Show representants mapping</button></td>
+                </tr>
+                <tr *ngIf="checkOpenedMapping(index)">
+                    <table>
+                        <tr>
+                            <th mat-sort-header="{{result.category}}concept{{index}}">Concept from text</th>
+                            <th mat-sort-header="{{result.category}}typedWord{{index}}">Typed word / meaning of cluster</th>
+                        </tr>
+                        <tr *ngFor="let item of showRepresentantsMapping(result.category) | keyvalue">
+                            <td>{{item.value}}</td>
+                            <td>{{item.key}}</td>
+                        </tr>
+                    </table>
+                </tr>
+            </ng-container>
+        </table>
+        </mat-card>
+</div>
