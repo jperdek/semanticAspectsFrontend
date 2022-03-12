@@ -37,8 +37,10 @@ import { AutomatizationComponent } from './pages/automatization/automatization.c
 import { CapturedResultComponent } from './captured-result/captured-result.component';
 import { AutomatizationResultVisualizationComponent } from './components/automatization-result-visualization/automatization-result-visualization.component';
 import { SafeHtmlPipe } from './pipes/domSanitize';
+// tslint:disable-next-line: max-line-length
 import { TableCategoriesVisualizationComponent } from './components/table-categories-visualization/table-categories-visualization.component';
 import { TableClustersVisualizationComponent } from './components/table-clusters-visualization/table-clusters-visualization.component';
+import { ReadabilityVisualizationComponent } from './components/readability-visualization/readability-visualization.component';
 
 const oktaConfig = {
   issuer: 'https://dev-03853854.okta.com',
@@ -71,7 +73,8 @@ const oktaConfig = {
     AutomatizationResultVisualizationComponent,
     SafeHtmlPipe,
     TableCategoriesVisualizationComponent,
-    TableClustersVisualizationComponent
+    TableClustersVisualizationComponent,
+    ReadabilityVisualizationComponent
   ],
   imports: [
     BrowserModule,

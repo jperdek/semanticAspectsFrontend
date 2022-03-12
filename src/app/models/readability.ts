@@ -51,19 +51,19 @@ export interface GunningFogScore {
 // https://en.wikipedia.org/wiki/Automated_readability_index
 export enum AutomatedReadabilityIndexCategory {
     Kindergarten = 'Score 1, age 5-6',
-    FirstSecondGrade = 'Score 2, age 6-7',
-    ThirdGrade = 'Score 3, age 7-9',
-    FourthGrade = 'Score 4, age 9-10',
-    FifthGrade = 'Score 5, age 10-11',
-    SixthGrade = 'Score 6, age 11-12',
-    SeventhGrade = 'Score 7, age 12-13',
-    EighthGrade = 'Score 8, age 13-14',
-    NinthGrade = 'Score 9, age 14-15',
-    TenthGrade = 'Score 10, age 15-16',
-    EleventhGrade = 'Score 11, age 16-17',
-    TwelfthGrade = 'Score 12, age 17-18',
-    CollegeStudent = 'Score 13, age 18-24',
-    Professor = 'Score 14, age 24+'
+    FirstGrade = 'Score 2, age 6-7',
+    SecondGrade = 'Score 3, age 7-8',
+    ThirdGrade = 'Score 4, age 7-9',
+    FourthGrade = 'Score 5, age 9-10',
+    FifthGrade = 'Score 6, age 10-11',
+    SixthGrade = 'Score 7, age 11-12',
+    SeventhGrade = 'Score 8, age 12-13',
+    EighthGrade = 'Score 9, age 13-14',
+    NinthGrade = 'Score 10, age 14-15',
+    TenthGrade = 'Score 11, age 15-16',
+    EleventhGrade = 'Score 12, age 16-17',
+    TwelfthGrade = 'Score 13, age 17-18',
+    CollegeStudent = 'Score 14, age 18-22',
 }
 
 

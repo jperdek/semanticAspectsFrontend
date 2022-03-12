@@ -4,6 +4,8 @@ import { AutomatizationService } from 'src/app/services/automatization/automatiz
 import { SharedFilesForAnalysisService } from 'src/app/services/shared-files-for-analysis.service';
 import { FileModel } from 'src/app/models/fileModel';
 import { AutomatizationResult } from 'src/app/models/automatizationResult';
+import { ReadabilityAnalysisService } from 'src/app/semanticAspects/readability/readability-analysis.service';
+import { ReadabilityIndexes } from 'src/app/models/readability';
 
 @Component({
   selector: 'app-automatization',
@@ -17,7 +19,9 @@ export class AutomatizationComponent implements OnInit {
   fileFormGroup: FormGroup;
   automatizationResults: AutomatizationResult[] = [];
 
-  constructor(private formBuilder: FormBuilder, private automatizationService: AutomatizationService) {}
+  constructor(private formBuilder: FormBuilder,
+              private automatizationService: AutomatizationService,
+              private readabilityService: ReadabilityAnalysisService) {}
 
   public ngOnInit(): void {
     this.fileFormGroup = this.formBuilder.group({
@@ -26,6 +30,17 @@ export class AutomatizationComponent implements OnInit {
     this.senseFormGroup = this.formBuilder.group({
       secondCtrl: ['', Validators.required]
     });
+  }
+
+  public deleteAutomatizedResult(automatizedResultIndex: number): void {
+    console.log(automatizedResultIndex);
+    console.log(this.automatizationResults[automatizedResultIndex]);
+
+    this.automatizationResults = this.automatizationResults.splice(automatizedResultIndex + 1, 1);
+  }
+
+  public analyzeReadabilityMetris(text: string): ReadabilityIndexes {
+    return this.readabilityService.analyzeText(text, []);
   }
 
   getAutomatizationResults(): AutomatizationResult[] {
@@ -49,15 +64,35 @@ export class AutomatizationComponent implements OnInit {
     return value.toString();
   }
 
+  public copyAutomatizationResultData(automatizationResultData: AutomatizationResult): AutomatizationResult {
+    return {
+      fileName: automatizationResultData.fileName,
+      category: automatizationResultData.category,
+      categories: automatizationResultData.categories,
+      categories_with_scores: automatizationResultData.categories_with_scores,
+      concepts_with_scores: automatizationResultData.concepts_with_scores,
+      analyzed_text: automatizationResultData.analyzed_text,
+      unprocessed_text: automatizationResultData.unprocessed_text,
+      interesting_parts: automatizationResultData.interesting_parts,
+      links: automatizationResultData.links,
+      mappings: automatizationResultData.mappings,
+      readability_metrics: automatizationResultData.readability_metrics,
+      readability_indexes: automatizationResultData.readability_indexes
+    };
+  }
+
   public applyAutomatization(): void {
     console.log(SharedFilesForAnalysisService.getUploadedFiles()[0]);
     if (SharedFilesForAnalysisService.getUploadedFiles()[0] !== undefined) {
         const uploadedFiles = SharedFilesForAnalysisService.getUploadedFiles();
         uploadedFiles.forEach((uploadedFile: FileModel) => {
           this.automatizationService.automatizationRequest(
-            uploadedFile.textResult, uploadedFile.name).then((automatizationResult: AutomatizationResult) => {
-            console.log(automatizationResult);
-            this.automatizationResults.push(automatizationResult);
+            uploadedFile.textResult, uploadedFile.name).then((automatizationResultData: AutomatizationResult) => {
+              const automatizationResult: AutomatizationResult = this.copyAutomatizationResultData(automatizationResultData);
+              // automatizationResult.unprocessed_text = uploadedFile.textResult;
+              automatizationResult.readability_indexes = this.analyzeReadabilityMetris(uploadedFile.textResult);
+              console.log(automatizationResult);
+              this.automatizationResults.push(automatizationResult);
           });
         });
       }
