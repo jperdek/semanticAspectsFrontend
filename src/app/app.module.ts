@@ -42,12 +42,40 @@ import { TableCategoriesVisualizationComponent } from './components/table-catego
 import { TableClustersVisualizationComponent } from './components/table-clusters-visualization/table-clusters-visualization.component';
 import { ReadabilityVisualizationComponent } from './components/readability-visualization/readability-visualization.component';
 
+import { ErrorSnackbarComponent } from './components/snackbars/error-snackbar/error-snackbar.component';
+import { SuccessSnackbarComponent } from './components/snackbars/success-snackbar/success-snackbar.component';
+import { UserFeedbackComponent } from './components/snackbars/user-feedback/user-feedback.component';
+import { InfoSnackbarComponent } from './components/snackbars/info-snackbar/info-snackbar.component';
+import {StarRatingModule} from 'angular-star-rating';
+
+
 const oktaConfig = {
   issuer: 'https://dev-03853854.okta.com',
   clientId: '0oa19wfjhrBoVLqSw5d7',
   redirectUri: window.location.origin + '/lcallback',
   scope: 'openid profile email'
 };
+
+// FOR LOGGING USING SENTRY
+import * as Raven from 'raven-js';
+Raven.config('https://f7c7c35bac3a4cffa8676c1839c7b15d@o517887.ingest.sentry.io/6256077').install();
+/*
+import * as Sentry from "@sentry/browser";
+import { Integrations } from "@sentry/tracing";
+Sentry.init({
+  dsn: "https://f7c7c35bac3a4cffa8676c1839c7b15d@o517887.ingest.sentry.io/6256077",
+  // Alternatively, use `process.env.npm_package_version` for a dynamic release version
+  // if your build tool supports it.
+  release: "my-project-name@2.3.12",
+  integrations: [new Integrations.BrowserTracing()],
+  s
+  // Set tracesSampleRate to 1.0 to capture 100%
+  // of transactions for performance monitoring.
+  // We recommend adjusting this value in production
+  tracesSampleRate: 1.0,
+});
+*/
+
 
 @NgModule({
   declarations: [
@@ -74,7 +102,11 @@ const oktaConfig = {
     SafeHtmlPipe,
     TableCategoriesVisualizationComponent,
     TableClustersVisualizationComponent,
-    ReadabilityVisualizationComponent
+    ReadabilityVisualizationComponent,
+    UserFeedbackComponent,
+    ErrorSnackbarComponent,
+    SuccessSnackbarComponent,
+    InfoSnackbarComponent
   ],
   imports: [
     BrowserModule,
@@ -89,6 +121,7 @@ const oktaConfig = {
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     StoreRouterConnectingModule.forRoot(),
     OktaAuthModule,
+    StarRatingModule.forRoot()
   ],
   providers: [{ provide: OKTA_CONFIG, useValue: oktaConfig }],
   bootstrap: [AppComponent]

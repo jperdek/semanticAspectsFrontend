@@ -6,6 +6,10 @@ import { FileModel } from 'src/app/models/fileModel';
 import { AutomatizationResult } from 'src/app/models/automatizationResult';
 import { ReadabilityAnalysisService } from 'src/app/semanticAspects/readability/readability-analysis.service';
 import { ReadabilityIndexes } from 'src/app/models/readability';
+import { LoggingService } from 'src/app/services/logging/logging.service';
+import { SuccessSnackbarComponent } from 'src/app/components/snackbars/success-snackbar/success-snackbar.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { InfoSnackbarComponent } from 'src/app/components/snackbars/info-snackbar/info-snackbar.component';
 
 
 @Component({
@@ -17,7 +21,9 @@ export class AutomatizationComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private automatizationService: AutomatizationService,
-              private readabilityService: ReadabilityAnalysisService) {}
+              private readabilityService: ReadabilityAnalysisService,
+              private loggingeService: LoggingService,
+              private matSnackBar: MatSnackBar) {}
 
   isLinear = false;
   senseFormGroup: FormGroup;
@@ -35,6 +41,7 @@ export class AutomatizationComponent implements OnInit {
     this.senseFormGroup = this.formBuilder.group({
       secondCtrl: ['', Validators.required]
     });
+    this.loggingeService.logInfo("SUccessfully logged!!!!!!!!!!!!!!!!!!!!!!!");
   }
 
   public deleteAutomatizedResult(automatizedResultIndex: number): void {
@@ -83,17 +90,20 @@ export class AutomatizationComponent implements OnInit {
   }
 
   public applyAutomatization(): void {
+    InfoSnackbarComponent.openSnackBar(this.matSnackBar, 'Started processing files. Please wait!');
     console.log(SharedFilesForAnalysisService.getUploadedFiles()[0]);
     if (SharedFilesForAnalysisService.getUploadedFiles()[0] !== undefined) {
-        const uploadedFiles = SharedFilesForAnalysisService.getUploadedFiles();
-        uploadedFiles.forEach((uploadedFile: FileModel) => {
-          this.automatizationService.automatizationRequest(
-            uploadedFile.textResult, uploadedFile.name).then((automatizationResultData: AutomatizationResult) => {
-              const automatizationResult: AutomatizationResult = this.copyAutomatizationResultData(automatizationResultData);
-              // automatizationResult.unprocessed_text = uploadedFile.textResult;
-              automatizationResult.readability_indexes = this.analyzeReadabilityMetris(uploadedFile.textResult);
-              console.log(automatizationResult);
-              this.automatizationResults.push(automatizationResult);
+        SharedFilesForAnalysisService.getUploadedFilesAsync(this.matSnackBar).then(uploadedFiles => {
+          uploadedFiles.forEach((uploadedFile: FileModel) => {
+            this.automatizationService.automatizationRequest(
+              uploadedFile.textResult, uploadedFile.name).then((automatizationResultData: AutomatizationResult) => {
+                const automatizationResult: AutomatizationResult = this.copyAutomatizationResultData(automatizationResultData);
+                // automatizationResult.unprocessed_text = uploadedFile.textResult;
+                automatizationResult.readability_indexes = this.analyzeReadabilityMetris(uploadedFile.textResult);
+                console.log(automatizationResult);
+                this.automatizationResults.push(automatizationResult);
+                SuccessSnackbarComponent.openSnackBar(this.matSnackBar, 'File: ' + uploadedFile.name + ' has been loaded!');
+            });
           });
         });
       }
@@ -106,11 +116,13 @@ export class AutomatizationComponent implements OnInit {
   public getMinScore(text: string): number {
     let minScore = 10000000;
     const scores = text.match(/score=([\"\'][^\"\']+[\"\'])/g);
-    for (const scoreString of scores){
-        const score = Number(scoreString.split('"')[1]);
-        if (minScore > score) {
-            minScore = score;
-        }
+    if (scores !== null) {
+      for (const scoreString of scores){
+          const score = Number(scoreString.split('"')[1]);
+          if (minScore > score) {
+              minScore = score;
+          }
+      }
     }
     return minScore;
   }
@@ -118,11 +130,14 @@ export class AutomatizationComponent implements OnInit {
   public getMaxScore(text: string): number {
     let maxScore = 0.0;
     const scores = text.match(/score=([\"\'][^\"\']+[\"\'])/g);
-    for (const scoreString of scores){
-        const score = Number(scoreString.split('"')[1]);
-        if (maxScore < score) {
-            maxScore = score;
-        }
+
+    if (scores !== null) {
+      for (const scoreString of scores){
+          const score = Number(scoreString.split('"')[1]);
+          if (maxScore < score) {
+              maxScore = score;
+          }
+      }
     }
     return maxScore;
   }
