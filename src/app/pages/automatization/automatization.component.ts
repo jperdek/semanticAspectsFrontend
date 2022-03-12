@@ -7,6 +7,7 @@ import { AutomatizationResult } from 'src/app/models/automatizationResult';
 import { ReadabilityAnalysisService } from 'src/app/semanticAspects/readability/readability-analysis.service';
 import { ReadabilityIndexes } from 'src/app/models/readability';
 
+
 @Component({
   selector: 'app-automatization',
   templateUrl: './automatization.component.html',
@@ -14,14 +15,18 @@ import { ReadabilityIndexes } from 'src/app/models/readability';
 })
 export class AutomatizationComponent implements OnInit {
 
+  constructor(private formBuilder: FormBuilder,
+              private automatizationService: AutomatizationService,
+              private readabilityService: ReadabilityAnalysisService) {}
+
   isLinear = false;
   senseFormGroup: FormGroup;
   fileFormGroup: FormGroup;
   automatizationResults: AutomatizationResult[] = [];
 
-  constructor(private formBuilder: FormBuilder,
-              private automatizationService: AutomatizationService,
-              private readabilityService: ReadabilityAnalysisService) {}
+  public static roundNumberToPlaces(numbertobeRound: number, decimalplaces: number): number {
+    return Math.round(numbertobeRound * Math.pow(10, decimalplaces)) / Math.pow(10, decimalplaces);
+  }
 
   public ngOnInit(): void {
     this.fileFormGroup = this.formBuilder.group({
@@ -57,10 +62,6 @@ export class AutomatizationComponent implements OnInit {
   }
 
   public formatLabel(value: number): string {
-    if (value >= 100) {
-      return Math.round(value / 100) + ' words';
-    }
-
     return value.toString();
   }
 
@@ -99,7 +100,7 @@ export class AutomatizationComponent implements OnInit {
   }
 
   public formatScoreLabel(value: number): number {
-    return value;
+    return AutomatizationComponent.roundNumberToPlaces(value, 2);
   }
 
   public getMinScore(text: string): number {
@@ -115,7 +116,7 @@ export class AutomatizationComponent implements OnInit {
   }
 
   public getMaxScore(text: string): number {
-    let maxScore = 0;
+    let maxScore = 0.0;
     const scores = text.match(/score=([\"\'][^\"\']+[\"\'])/g);
     for (const scoreString of scores){
         const score = Number(scoreString.split('"')[1]);

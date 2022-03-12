@@ -6,7 +6,7 @@ import { CategoryRating } from 'src/app/models/category';
 @Component({
   selector: 'app-table-categories-visualization',
   templateUrl: './table-categories-visualization.component.html',
-  styleUrls: ['./table-categories-visualization.component.css']
+  styleUrls: ['./table-categories-visualization.component.scss']
 })
 export class TableCategoriesVisualizationComponent implements OnInit {
 

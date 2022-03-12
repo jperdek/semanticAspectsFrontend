@@ -2,13 +2,13 @@
     <mat-card class="senseAnalysisResult" *ngIf="categoryRating">
         <table matSort (matSortChange)="sortedData = sortData($event, categoryRating)">
             <tr>
-            <th mat-sort-header="category">Category</th>
-            <th mat-sort-header="value">Rating</th>
+                <th mat-sort-header="category" class="table-heading">Category</th>
+                <th mat-sort-header="value" class="table-heading">Rating</th>
             </tr>
         
             <tr *ngFor="let result of (sortedData === undefined)? categoryRating: sortedData">
-            <td>{{result.category}}</td>
-            <td>{{result.value}}</td>
+                <td class="table-data">{{result.category}}</td>
+                <td class="table-data values-data">{{result.value}}</td>
             </tr>
         </table>
         </mat-card>

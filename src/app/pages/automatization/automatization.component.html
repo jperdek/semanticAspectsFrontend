@@ -9,7 +9,6 @@
             </app-file-upload>
           </form>
           <app-file-or-input [files]="getUploadedFiles()"></app-file-or-input>
-
       </mat-step>
       
       <mat-step>
@@ -41,18 +40,22 @@
                 Collected content based on file
               </mat-panel-description>
             </mat-expansion-panel-header>
-            <div [innerHTML]="automatizationResult.analyzed_text | sanitizeHtml"></div>
-            <mat-slider #scoreThreshold
-                thumbLabel
-                [displayWith]="formatScoreLabel"
-                tickInterval="1000"
-                step="0.01"
-                [min]="getMinScore(automatizationResult.analyzed_text)"
-                [max]="getMaxScore(automatizationResult.analyzed_text)"
-                (slideend)="scoreOnSlideChange(scoreThreshold.value, automatizationResult)"
-                (pointerup)="scoreOnSlideChange(scoreThreshold.value, automatizationResult)"
-                aria-label="units">
-            </mat-slider>
+            <div class="relevancy-settings">
+              <div class="main-category-heading">Choose relevancy threshold:</div>
+              <mat-slider #scoreThreshold class="slider-relevancy"
+                  thumbLabel
+                  [displayWith]="formatScoreLabel"
+                  tickInterval="1000"
+                  step="0.01"
+                  [min]="getMinScore(automatizationResult.analyzed_text)"
+                  [max]="getMaxScore(automatizationResult.analyzed_text)"
+                  (slideend)="scoreOnSlideChange(scoreThreshold.value, automatizationResult)"
+                  (pointerup)="scoreOnSlideChange(scoreThreshold.value, automatizationResult)"
+                  aria-label="units">
+              </mat-slider>
+            </div>
+            <div [innerHTML]="automatizationResult.analyzed_text | sanitizeHtml" class="analyzed-text"></div>
+            
 
           </mat-expansion-panel>
           <mat-expansion-panel (opened)="panelOpenState = true"

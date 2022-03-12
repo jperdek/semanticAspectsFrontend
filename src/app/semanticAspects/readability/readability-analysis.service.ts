@@ -221,7 +221,7 @@ export class ReadabilityAnalysisService {
       daleChallReadabilityScore: undefined,
       linsearWriteFormula: undefined,
       gunningFog: undefined,
-      textStandard: -1,
+      textStandard: undefined,
       difficultWords: -1
     };
 
@@ -334,6 +334,7 @@ export class ReadabilityAnalysisService {
     if (all || 'textStandard' in usedMethods) {
       try{
         readabilityIndexes.textStandard = rs.textStandard(text);
+        console.log(readabilityIndexes.textStandard);
       } catch (error) {
         console.log(error);
       }

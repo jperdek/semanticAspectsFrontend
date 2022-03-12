@@ -5,7 +5,7 @@ import { CategoryRating } from 'src/app/models/category';
 @Component({
   selector: 'app-table-clusters-visualization',
   templateUrl: './table-clusters-visualization.component.html',
-  styleUrls: ['./table-clusters-visualization.component.css']
+  styleUrls: ['./table-clusters-visualization.component.scss']
 })
 export class TableClustersVisualizationComponent {
 

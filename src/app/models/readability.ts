@@ -6,7 +6,7 @@ export interface ReadabilityIndexes {
     daleChallReadabilityScore: DaleChallReadabilityScore;
     linsearWriteFormula: LinsearWriteFormulaScore;
     gunningFog: GunningFogScore;
-    textStandard: number;
+    textStandard: string;
     difficultWords: number;
 }
 
@@ -29,18 +29,18 @@ export interface FleschReadingEaseScore {
 
 // https://en.wikipedia.org/wiki/Gunning_fog_index
 export enum GunningFogCategory {
-    SixthGrade = 6,
-    SeventhGrade = 7,
-    EighthGrade = 8,
-    HighSchoolFreshman = 9,
-    HighSchoolSophomore = 10,
-    HighSchoolJunior = 11,
-    HighSchoolSenior = 12,
-    CollegeFreshman = 13,
-    CollegeSophomore = 14,
-    CollegeJunior = 15,
-    CollegeSenior = 16,
-    CollegeGraduate = 17
+    SixthGrade = 'Grade 6',
+    SeventhGrade = 'Grade 7',
+    EighthGrade = 'Grade 8',
+    HighSchoolFreshman = 'Grade 9',
+    HighSchoolSophomore = 'Grade 10',
+    HighSchoolJunior = 'Grade 11',
+    HighSchoolSenior = 'Grade 12',
+    CollegeFreshman = 'Grade 13',
+    CollegeSophomore = 'Grade 14',
+    CollegeJunior = 'Grade 15',
+    CollegeSenior = 'Grade 16',
+    CollegeGraduate = 'Grade 17'
 }
 
 export interface GunningFogScore {
