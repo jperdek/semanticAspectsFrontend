@@ -46,7 +46,7 @@ import { ErrorSnackbarComponent } from './components/snackbars/error-snackbar/er
 import { SuccessSnackbarComponent } from './components/snackbars/success-snackbar/success-snackbar.component';
 import { UserFeedbackComponent } from './components/snackbars/user-feedback/user-feedback.component';
 import { InfoSnackbarComponent } from './components/snackbars/info-snackbar/info-snackbar.component';
-import {StarRatingModule} from 'angular-star-rating';
+import { StarRatingModule } from '@sreyaj/ng-star-rating';
 
 
 const oktaConfig = {
@@ -121,7 +121,7 @@ Sentry.init({
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     StoreRouterConnectingModule.forRoot(),
     OktaAuthModule,
-    StarRatingModule.forRoot()
+    StarRatingModule
   ],
   providers: [{ provide: OKTA_CONFIG, useValue: oktaConfig }],
   bootstrap: [AppComponent]

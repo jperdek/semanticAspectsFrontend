@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 export class LoggingService {
 
   private readonly disabled = false;
-  private readonly enableInAllEnvironments = false; // turn in with value true
+  private readonly enableInAllEnvironments = true; // turn in with value true
   constructor() {}
 
   private basicCheck(): boolean {
@@ -22,7 +22,7 @@ export class LoggingService {
     }
   }
 
-  public logJSONInfo(informationJSONToLog: string): void {
+  public logJSONInfo(informationJSONToLog: any): void {
     this.logInfo(JSON.stringify(informationJSONToLog));
   }
 }

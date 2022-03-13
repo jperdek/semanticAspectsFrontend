@@ -10,6 +10,7 @@ import { LoggingService } from 'src/app/services/logging/logging.service';
 import { SuccessSnackbarComponent } from 'src/app/components/snackbars/success-snackbar/success-snackbar.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { InfoSnackbarComponent } from 'src/app/components/snackbars/info-snackbar/info-snackbar.component';
+import { UserFeedbackComponent } from 'src/app/components/snackbars/user-feedback/user-feedback.component';
 
 
 @Component({
@@ -23,6 +24,7 @@ export class AutomatizationComponent implements OnInit {
               private automatizationService: AutomatizationService,
               private readabilityService: ReadabilityAnalysisService,
               private loggingeService: LoggingService,
+              private feedbackBar: MatSnackBar,
               private matSnackBar: MatSnackBar) {}
 
   isLinear = false;
@@ -41,7 +43,6 @@ export class AutomatizationComponent implements OnInit {
     this.senseFormGroup = this.formBuilder.group({
       secondCtrl: ['', Validators.required]
     });
-    this.loggingeService.logInfo("SUccessfully logged!!!!!!!!!!!!!!!!!!!!!!!");
   }
 
   public deleteAutomatizedResult(automatizedResultIndex: number): void {
@@ -94,7 +95,7 @@ export class AutomatizationComponent implements OnInit {
     console.log(SharedFilesForAnalysisService.getUploadedFiles()[0]);
     if (SharedFilesForAnalysisService.getUploadedFiles()[0] !== undefined) {
         SharedFilesForAnalysisService.getUploadedFilesAsync(this.matSnackBar).then(uploadedFiles => {
-          uploadedFiles.forEach((uploadedFile: FileModel) => {
+          uploadedFiles.forEach((uploadedFile: FileModel, index: number) => {
             this.automatizationService.automatizationRequest(
               uploadedFile.textResult, uploadedFile.name).then((automatizationResultData: AutomatizationResult) => {
                 const automatizationResult: AutomatizationResult = this.copyAutomatizationResultData(automatizationResultData);
@@ -103,12 +104,18 @@ export class AutomatizationComponent implements OnInit {
                 console.log(automatizationResult);
                 this.automatizationResults.push(automatizationResult);
                 SuccessSnackbarComponent.openSnackBar(this.matSnackBar, 'File: ' + uploadedFile.name + ' has been loaded!');
+                if (index === uploadedFiles.length - 1) {
+                  setTimeout(() => this.getFeedback(uploadedFile), 1000);
+                }
             });
           });
         });
       }
   }
 
+  private getFeedback(fileModel: FileModel): void {
+    UserFeedbackComponent.openSnackBar(this.feedbackBar, 'Provide your feedback', this.loggingeService, fileModel);
+  }
   public formatScoreLabel(value: number): number {
     return AutomatizationComponent.roundNumberToPlaces(value, 2);
   }
