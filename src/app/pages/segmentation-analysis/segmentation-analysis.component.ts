@@ -30,7 +30,8 @@ export class SegmentationAnalysisComponent {
     arrayBuffer: null,
     slice: null,
     text: null,
-    somSettings: undefined
+    somSettings: undefined,
+    webkitRelativePath: ''
   };
 
   cetdFormGroup: FormGroup;

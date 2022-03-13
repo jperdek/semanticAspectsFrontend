@@ -47,6 +47,7 @@ export class FileOrInputComponent implements OnInit {
         slice: null,
         text: null,
         somSettings: undefined,
+        webkitRelativePath: ''
       };
 
       this.files.push(fileModel);
@@ -84,7 +85,8 @@ export class FileOrInputComponent implements OnInit {
       arrayBuffer: null,
       slice: null,
       text: null,
-      somSettings: undefined
+      somSettings: undefined,
+      webkitRelativePath: ''
     };
 
     $event.preventDefault();
