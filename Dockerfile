@@ -9,7 +9,7 @@ RUN npm ci
 COPY . .
 
 # build production version of application
-RUN npm run ng build -- --prod --output-path=dist
+RUN npm run ng build -- --configuration production --output-path=dist
 
 # now create nginx server
 FROM nginx:alpine
@@ -26,4 +26,5 @@ COPY nginx.conf /etc/nginx/
 # copy artifacts from build-env
 COPY --from=build-env /app/dist /usr/share/nginx/html
 
-ENTRYPOINT nginx -g 'daemon off;'
+ENTRYPOINT echo "window.ToolRequestConfig = { apiBaseUrl: '${API_BASE_URI}' }; " >> /usr/share/nginx/html/config.js && \
+    nginx -g 'daemon off;'
