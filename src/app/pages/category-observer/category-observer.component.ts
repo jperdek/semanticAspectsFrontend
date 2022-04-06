@@ -13,5 +13,4 @@ export class CategoryObserverComponent implements OnInit {
   ngOnInit(): void {
     this.readabilityAnalysisService.test();
   }
-
 }

@@ -21,7 +21,6 @@ export class LoginComponent implements OnInit {
   async login(event: Event): Promise<any> {
     event.preventDefault();
     const isAuthenticated = await this.oktaAuth.isAuthenticated();
-    console.log(isAuthenticated);
     await this.oktaAuth.login('/');
   }
 

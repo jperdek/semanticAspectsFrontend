@@ -9,12 +9,6 @@ import { SenseAnalysisComponent } from './pages/sense-analysis/sense-analysis.co
 import { SegmentationAnalysisComponent } from './pages/segmentation-analysis/segmentation-analysis.component';
 import { AutomatizationComponent } from './pages/automatization/automatization.component';
 
-const oktaConfig = {
-  issuer: 'https://dev-03853854.okta.com',
-  clientId: '0oa19wfjhrBoVLqSw5d7',
-  redirectUri: window.location.origin + '/lcallback',
-  scope: 'openid profile email'
-};
 
 const routes: Routes = [
   {
@@ -49,8 +43,8 @@ const routes: Routes = [
   },
   {
     path: 'automatization',
-    //canLoad: [OktaAuthGuard],
-    //canActivate: [OktaAuthGuard],
+    canLoad: [OktaAuthGuard],
+    canActivate: [OktaAuthGuard],
     data: {
       roles: [
         Role.Admin,

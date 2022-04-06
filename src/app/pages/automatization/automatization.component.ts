@@ -7,10 +7,12 @@ import { AutomatizationResult } from 'src/app/models/automatizationResult';
 import { ReadabilityAnalysisService } from 'src/app/semanticAspects/readability/readability-analysis.service';
 import { ReadabilityIndexes } from 'src/app/models/readability';
 import { LoggingService } from 'src/app/services/logging/logging.service';
-import { SuccessSnackbarComponent } from 'src/app/components/snackbars/success-snackbar/success-snackbar.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { InfoSnackbarComponent } from 'src/app/components/snackbars/info-snackbar/info-snackbar.component';
 import { UserFeedbackComponent } from 'src/app/components/snackbars/user-feedback/user-feedback.component';
+import { ErrorSnackbarComponent } from 'src/app/components/snackbars/error-snackbar/error-snackbar.component';
+import { environment } from 'src/environments/environment';
+import { SuccessSnackbarComponent } from 'src/app/components/snackbars/success-snackbar/success-snackbar.component';
 
 
 @Component({
@@ -46,9 +48,6 @@ export class AutomatizationComponent implements OnInit {
   }
 
   public deleteAutomatizedResult(automatizedResultIndex: number): void {
-    console.log(automatizedResultIndex);
-    console.log(this.automatizationResults[automatizedResultIndex]);
-
     this.automatizationResults = this.automatizationResults.splice(automatizedResultIndex + 1, 1);
   }
 
@@ -99,14 +98,16 @@ export class AutomatizationComponent implements OnInit {
             this.automatizationService.automatizationRequest(
               uploadedFile.textResult, uploadedFile.name).then((automatizationResultData: AutomatizationResult) => {
                 const automatizationResult: AutomatizationResult = this.copyAutomatizationResultData(automatizationResultData);
-                // automatizationResult.unprocessed_text = uploadedFile.textResult;
                 automatizationResult.readability_indexes = this.analyzeReadabilityMetris(uploadedFile.textResult);
-                console.log(automatizationResult);
+                if (environment.debug){ console.log(automatizationResult); }
                 this.automatizationResults.push(automatizationResult);
                 SuccessSnackbarComponent.openSnackBar(this.matSnackBar, 'File: ' + uploadedFile.name + ' has been loaded!');
                 if (index === uploadedFiles.length - 1) {
                   setTimeout(() => this.getFeedback(uploadedFile), 1000);
                 }
+            }).catch(error => {
+              if (environment.debug){ console.log(error); }
+              ErrorSnackbarComponent.openSnackBar(this.matSnackBar, 'Error occurred while loading file: ' + uploadedFile.name + '! Try again!');
             });
           });
         });

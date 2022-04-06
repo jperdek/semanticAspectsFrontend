@@ -1,5 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ErrorSnackbarComponent } from 'src/app/components/snackbars/error-snackbar/error-snackbar.component';
+import { InfoSnackbarComponent } from 'src/app/components/snackbars/info-snackbar/info-snackbar.component';
 import { SOMUsageType } from 'src/app/models/somSettings';
 import { SomSegmentationMethodService } from 'src/app/services/segmentation/som-segmentation-method.service';
 import { FileModel } from '../../models/fileModel';
@@ -40,7 +43,8 @@ export class SegmentationAnalysisComponent {
   constructor(
     private formBuilder: FormBuilder,
     private basicSegmentationMethodsService: BasicSegmentationMethodsService,
-    private somSegmentationMethod: SomSegmentationMethodService) {
+    private somSegmentationMethod: SomSegmentationMethodService,
+    private matSnackBar: MatSnackBar) {
     this.cetdFormGroup = this.formBuilder.group({
       cetdNormalMethod: ['', ],
       cetdEdgareMethod: ['', ],
@@ -53,6 +57,7 @@ export class SegmentationAnalysisComponent {
 
   public useCETDSegmentation(): void {
     if (this.cetdFormGroup.valid){
+      InfoSnackbarComponent.openSnackBar(this.matSnackBar, 'CETD segmentation has started!');
       const methods = [];
       if (this.cetdFormGroup.controls.cetdNormalMethod.value){ methods.push('normal'); }
       if (this.cetdFormGroup.controls.cetdEdgareMethod.value){ methods.push('edgare'); }
@@ -63,66 +68,83 @@ export class SegmentationAnalysisComponent {
             file.segmentationMethod = 'cetd';
             file.appliedSegmentation = true;
             file.textResult = JSON.stringify(result);
-            console.log(result);
-          }).catch(error => console.log('Error occured during cetd analysis: ' + error));
+          }).catch(error => {
+            ErrorSnackbarComponent.openSnackBar(this.matSnackBar, 'Error occured during cetd analysis: ' + error);
+          });
         }
       }
     } else {
-      console.log('Error: cetd form group is invalid!');
+      ErrorSnackbarComponent.openSnackBar(this.matSnackBar, 'Error: please fill form correctly!');
     }
   }
 
   public useTextSegmentation(): void {
+    InfoSnackbarComponent.openSnackBar(this.matSnackBar, 'Text segmentation has started!');
     for (const file of this.files){
       if (!file.disallowedMethods.includes('all_text')){
         this.basicSegmentationMethodsService.textExtractor(file.textResult).then(result => {
           file.segmentationMethod = 'all_text';
           file.appliedSegmentation = true;
           file.textResult = JSON.stringify(result);
-          console.log(result);
-        }).catch(error => console.log('Error occured during text analysis: ' + error));
+        }).catch(error => {
+          ErrorSnackbarComponent.openSnackBar(this.matSnackBar, 'Error occured during text analysis: ' + error);
+        });
       }
     }
   }
 
   public useSOMSegmentation(): void {
+    InfoSnackbarComponent.openSnackBar(this.matSnackBar, 'SOM segmentation has started!');
     const mergedFiles = this.somSegmentationMethod.mergeContentFiles(this.files, SOMUsageType.forDomain);
     if (this.somTemplateFileReference.textResult === undefined) {
       this.somSegmentationMethod.createSOMTree(mergedFiles).then(result => {
+        // USE RESULT
         console.log(result);
-      }).catch(error => console.log('Error occured during SOM segmentation analysis: ' + error));
+      }).catch(error => {
+        ErrorSnackbarComponent.openSnackBar(this.matSnackBar, 'Error occured during SOM segmentation analysis: ' + error);
+      });
     } else {
       this.somSegmentationMethod.updateSOMTree(mergedFiles, this.somTemplateFileReference.textResult).then(result => {
-        console.log(result);
-      }).catch(error => console.log('Error occured during SOM segmentation analysis: ' + error));
+        // USE RESULT
+      }).catch(error => {
+        ErrorSnackbarComponent.openSnackBar(this.matSnackBar, 'Error occured during SOM segmentation analysis: ' + error);
+      });
     }
   }
 
   public somTemplateResults(): void {
     const mergedFiles = this.somSegmentationMethod.mergeContentFiles(this.files, SOMUsageType.forDomain);
+    InfoSnackbarComponent.openSnackBar(this.matSnackBar, 'SOM Template analysis has started!');
     if (this.somTemplateFileReference.textResult === undefined) {
       this.somSegmentationMethod.createSOMTree(mergedFiles).then(result => {
         console.log(result);
-      }).catch(error => console.log('Error occured during SOM segmentation analysis: ' + error));
+      }).catch(error => {
+        ErrorSnackbarComponent.openSnackBar(this.matSnackBar, 'Error occured during SOM segmentation analysis: ' + error);
+      });
     } else {
       this.somSegmentationMethod.updateSOMTree(mergedFiles, this.somTemplateFileReference.textResult).then(result => {
         console.log(result);
-      }).catch(error => console.log('Error occured during SOM segmentation analysis: ' + error));
+      }).catch(error => {
+        ErrorSnackbarComponent.openSnackBar(this.matSnackBar, 'Error occured during SOM segmentation analysis: ' + error);
+      });
     }
   }
 
   public analyzeTemplate(): void {
     if (this.analyzeTemplateFormGroup.valid) {
+      InfoSnackbarComponent.openSnackBar(this.matSnackBar, 'Template analysis has started!');
       const acceptPercentage = this.analyzeTemplateFormGroup.controls.sliderPercentageFormControl.value;
       if (this.somTemplateFileReference.textResult !== undefined) {
         this.somSegmentationMethod.extractFromSOMTree(this.somTemplateFileReference.textResult, acceptPercentage).then(result => {
           console.log(result);
-        }).catch(error => console.log('Error occured during SOM template analysis: ' + error));
+        }).catch(error => {
+          ErrorSnackbarComponent.openSnackBar(this.matSnackBar, 'Error occured during SOM segmentation analysis: ' + error);
+        });
       } else {
-        console.log('Error: cant analyzed empty template')
+        ErrorSnackbarComponent.openSnackBar(this.matSnackBar, 'Error: can\'t analyzed empty template!');
       }
     } else {
-      console.log('Error: form for template analysis is invalid');
+      ErrorSnackbarComponent.openSnackBar(this.matSnackBar, 'Error: please fill form correctly!');
     }
   }
 

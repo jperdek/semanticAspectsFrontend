@@ -3,8 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  debug: true,
-  production: false,
+  debug: false,
+  production: true,
   apiBaseUrl: 'http://localhost:5000',
   octa_data: {
     client_id: '0oa19wfjhrBoVLqSw5d7',
