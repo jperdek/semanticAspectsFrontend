@@ -18,12 +18,18 @@ export class AuthManagerService {
   }
 
   async perform(method: string, apiPart: string, httpParameters: HttpParams, data = {}, additionalHeaders: any = {}): Promise<any> {
-    const accessToken = await this.oktaAuth.getAccessToken();
-    // const accessToken = 'debug';
-    console.log(accessToken);
+    let accessToken;
+    if (environment.useOcta){
+      accessToken = await this.oktaAuth.getAccessToken();
+    } else {
+      accessToken = 'debug';
+    }
     const url = `${this.baseUrl}${apiPart}?${httpParameters.toString()}`;
-    console.log(url);
-    console.log(httpParameters.toString());
+    if (environment.debug){
+      console.log(url);
+      console.log(httpParameters.toString());
+    }
+    
     const headersData = Object.assign({}, {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${accessToken}`,

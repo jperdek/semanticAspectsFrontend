@@ -1,5 +1,6 @@
 export const environment = {
   debug: false,
+  useOcta: true,
   production: true,
   apiBaseUrl: 'https://semanticaspectsapp.azurewebsites.net',
   octa_data: {

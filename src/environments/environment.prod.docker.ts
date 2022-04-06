@@ -4,6 +4,7 @@
 
 export const environment = {
   debug: false,
+  useOcta: false,
   production: true,
   apiBaseUrl: 'http://localhost:5000',
   octa_data: {

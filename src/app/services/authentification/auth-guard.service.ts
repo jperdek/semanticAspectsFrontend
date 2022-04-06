@@ -13,6 +13,9 @@ export class AuthGuardService implements CanActivate {
   constructor(private router: Router, private authenticationService: AuthenticationService) { }
 
   canActivate(route: ActivatedRouteSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+    if (!environment.useOcta){
+      return true;
+    }
     if (!this.authenticationService.isAuthorized()) {
       console.log('NOT AUTHORIZED');
       this.router.navigate(['login']);
@@ -28,6 +31,9 @@ export class AuthGuardService implements CanActivate {
   }
 
   canLoad(route: Route): Observable<boolean> | Promise<boolean> | boolean {
+      if (!environment.useOcta){
+        return true;
+      }
       if (!this.authenticationService.isAuthorized()) {
         console.log('NOT AUTHORIZED');
         return false;

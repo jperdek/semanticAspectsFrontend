@@ -13,7 +13,7 @@
       
       <mat-step>
         <ng-template matStepLabel><p class="step-part-title">Start analysis</p></ng-template>
-          
+        <app-spinner *ngIf="spinnerVisibility"></app-spinner>
         <div class="management-buttons">
           <button mat-button matStepperPrevious class="back-button" [routerLink]="'/'" >Back</button>
           <button mat-button (click)="stepper.reset()" class="reset-button">Reset</button>

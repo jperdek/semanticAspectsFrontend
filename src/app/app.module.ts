@@ -58,6 +58,7 @@ const oktaConfig = {
 
 // FOR LOGGING USING SENTRY
 import * as Raven from 'raven-js';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 Raven.config('https://f7c7c35bac3a4cffa8676c1839c7b15d@o517887.ingest.sentry.io/6256077').install();
 /*
 import * as Sentry from "@sentry/browser";
@@ -106,7 +107,8 @@ Sentry.init({
     UserFeedbackComponent,
     ErrorSnackbarComponent,
     SuccessSnackbarComponent,
-    InfoSnackbarComponent
+    InfoSnackbarComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,

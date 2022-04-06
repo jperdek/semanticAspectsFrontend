@@ -30,6 +30,7 @@ export class AutomatizationComponent implements OnInit {
               private matSnackBar: MatSnackBar) {}
 
   isLinear = false;
+  spinnerVisibility = false
   senseFormGroup: FormGroup;
   fileFormGroup: FormGroup;
   automatizationResults: AutomatizationResult[] = [];
@@ -93,6 +94,7 @@ export class AutomatizationComponent implements OnInit {
     InfoSnackbarComponent.openSnackBar(this.matSnackBar, 'Started processing files. Please wait!');
     console.log(SharedFilesForAnalysisService.getUploadedFiles()[0]);
     if (SharedFilesForAnalysisService.getUploadedFiles()[0] !== undefined) {
+        this.spinnerVisibility = true;
         SharedFilesForAnalysisService.getUploadedFilesAsync(this.matSnackBar).then(uploadedFiles => {
           uploadedFiles.forEach((uploadedFile: FileModel, index: number) => {
             this.automatizationService.automatizationRequest(
@@ -102,10 +104,12 @@ export class AutomatizationComponent implements OnInit {
                 if (environment.debug){ console.log(automatizationResult); }
                 this.automatizationResults.push(automatizationResult);
                 SuccessSnackbarComponent.openSnackBar(this.matSnackBar, 'File: ' + uploadedFile.name + ' has been loaded!');
+                this.spinnerVisibility = false;
                 if (index === uploadedFiles.length - 1) {
                   setTimeout(() => this.getFeedback(uploadedFile), 1000);
                 }
             }).catch(error => {
+              this.spinnerVisibility = false;
               if (environment.debug){ console.log(error); }
               ErrorSnackbarComponent.openSnackBar(this.matSnackBar, 'Error occurred while loading file: ' + uploadedFile.name + '! Try again!');
             });
