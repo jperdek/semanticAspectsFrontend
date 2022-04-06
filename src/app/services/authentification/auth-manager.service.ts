@@ -29,7 +29,7 @@ export class AuthManagerService {
       console.log(url);
       console.log(httpParameters.toString());
     }
-    
+
     const headersData = Object.assign({}, {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${accessToken}`,

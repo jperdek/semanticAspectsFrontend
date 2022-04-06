@@ -16,7 +16,6 @@ export class TableCategoriesVisualizationComponent {
   constructor() { }
 
   public sortData(sort: Sort, ratings: CategoryRating[]): CategoryRating[] {
-    console.log(ratings);
     const data = ratings.slice();
     if (!sort.active || sort.direction === '') {
       const newData1 = data;

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { OktaAuth, IDToken, AccessToken } from '@okta/okta-auth-js';
 import { environment } from 'src/environments/environment';
 
+
 // https://developer.okta.com/blog/2019/03/25/build-crud-app-with-python-flask-angular
 // https://developer.okta.com/code/angular/okta_angular_auth_js/#create-an-authentication-service
 
@@ -44,12 +45,12 @@ export class OktaAuthService {
     return !!(await this.oktaAuth.tokenManager.get('accessToken'));
   }
 
-  public login(originalUrl: string): void {
+  public login(originalUrl: string): Promise<void> {
     // Save current URL before redirect
     sessionStorage.setItem('okta-app-url', originalUrl || this.router.url);
 
     // Launches the login redirect.
-    this.oktaAuth.token.getWithRedirect({
+    return this.oktaAuth.token.getWithRedirect({
       scopes: ['openid', 'email', 'profile']
     });
   }
@@ -66,7 +67,7 @@ export class OktaAuthService {
 
     // Retrieve the saved URL and navigate back
     const url = sessionStorage.getItem('okta-app-url') as string;
-    console.log(url);
+
     this.router.navigateByUrl(url);
   }
 

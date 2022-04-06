@@ -92,7 +92,6 @@ export class AutomatizationComponent implements OnInit {
 
   public applyAutomatization(): void {
     InfoSnackbarComponent.openSnackBar(this.matSnackBar, 'Started processing files. Please wait!');
-    console.log(SharedFilesForAnalysisService.getUploadedFiles()[0]);
     if (SharedFilesForAnalysisService.getUploadedFiles()[0] !== undefined) {
         this.spinnerVisibility = true;
         SharedFilesForAnalysisService.getUploadedFilesAsync(this.matSnackBar).then(uploadedFiles => {
@@ -158,10 +157,8 @@ export class AutomatizationComponent implements OnInit {
     let finalString = '';
     const tagParts = automatizationResult.analyzed_text.match(
       /([^<])+<\s*p\s+score=[\"\'][^\"\']+[\"\']\s+class=[\"\'][^\"\']+[\"\']\s*>[^<]+<\s*\/p\s*>/g);
-    console.log(tagParts);
     for (const tagPart of tagParts){
         const score = Number(tagPart.split('score="')[1].split('"')[0]);
-        console.log(tagPart);
         if (score >= threshold) {
             finalString = finalString + tagPart.replace(/class=[\"\'][^\"\']+[\"\']/, 'class="relevant-word chosen-relevant-word"');
         } else {

@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../services/authentification/authentication.service';
-import { Role } from '../../models/role';
-import { RouterData } from '../../models/router';
 import { OktaAuthService } from '../../services/authentification/okta-auth.service';
 
 @Component({
@@ -16,16 +14,35 @@ export class NavigationComponent implements OnInit {
     private oktaAuth: OktaAuthService,
     private router: Router,
     private authenticationService: AuthenticationService) {
-    console.log(this.router.config);
   }
 
+  logged = false;
+
   public ngOnInit(): void {
+    setTimeout(() => {this.oktaAuth.isAuthenticated().then(isAuthenticated => {
+      if (isAuthenticated) {
+        this.logged = true;
+      } else {
+        this.logged = false;
+      }
+    });}, 200);
+    setTimeout(() => {this.oktaAuth.isAuthenticated().then(isAuthenticated => {
+      if (isAuthenticated) {
+        this.logged = true;
+      } else {
+        this.logged = false;
+      }
+    });}, 1000);
   }
 
   public logout(): void {
-    this.authenticationService.logout();
     this.oktaAuth.logout();
+    this.authenticationService.logout();
     this.router.navigate(['/']);
+  }
+
+  public isLogged(): boolean {
+    return this.logged;
   }
 
   public hasAccessRights(pathParent: string): boolean{
