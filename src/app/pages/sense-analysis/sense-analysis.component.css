@@ -3,12 +3,24 @@
     height: 7rem;
 }
 
-.senseAnalysisCard {
-    display: flex;
-    flex-direction: column;
-    width: 50vw;
-    margin: 2rem;
-    border: 3px solid #dedede;
+@media(min-width: 900px) {
+    .sense-analysis-card {
+        display: flex;
+        flex-direction: column;
+        width: 50vw;
+        margin: 2rem;
+        border: 3px solid #dedede;
+    }
+}
+
+@media(max-width: 900px) {
+    .sense-analysis-card {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin: 2rem;
+        border: 3px solid #dedede;
+    }
 }
 
 .senseAnalysisTitle {
@@ -26,7 +38,7 @@
     font-size: 15px;
 }
 
-.senseAnalysisExample {
+.sense-analysis-image {
     height: 120px;
     float: right;
     margin-left: 2rem;

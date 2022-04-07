@@ -28,11 +28,27 @@
 
 .whole-tab-group {
   width: 100%;
+  max-width: 1200px;
   margin: 0 auto;
 
-  .insert-file-tab {
-    width: 80%;
-    margin: 0 auto;
+  @media(max-width: 450px) {
+    .insert-file-tab {
+      width: 100%;
+    }
+  }
+
+  @media(max-width: 650px) and (min-width: 450px){
+    .insert-file-tab {
+      width: 90%;
+      margin: 0 auto;
+    }
+  }
+
+  @media(min-width: 650px){
+    .insert-file-tab {
+      width: 80%;
+      margin: 0 auto;
+    }
   }
 
   .result-tab {
@@ -107,12 +123,35 @@
   margin-bottom: 24px;
 }
 
+@media(max-width: 450px) {
+  .analyze-button {
+    width: 200px;
+  }
+}
+
+@media(max-width: 650px) and (min-width: 450px){
+  .analyze-button {
+    width: 300px;
+  }
+}
+
+@media(min-width: 650px){
+  .analyze-button {
+    width: 400px;
+  }
+}
+
+.step-buttons {
+  display: flex;
+  justify-content: right;
+  justify-items: right;
+}
+
 .analyze-button {
   border: 2px solid #009900;
   border-radius: 5px;
-  width: 400px;
   height: 50px;
-  float: right;
+  justify-self: right;
   margin-top: 48px;
   cursor: pointer;
   font-size: large;
@@ -185,4 +224,10 @@
 .analyzed-text {
   font-size: large;
   line-height: 1.5;
+}
+
+@media(max-width: 450px) {
+  ::ng-deep .mat-vertical-content-container{
+    margin-left: 0 !important;
+  }
 }

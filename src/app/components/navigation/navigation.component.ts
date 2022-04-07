@@ -14,25 +14,27 @@ export class NavigationComponent implements OnInit {
     private oktaAuth: OktaAuthService,
     private router: Router,
     private authenticationService: AuthenticationService) {
+      router.events.subscribe((val) => {
+        this.oktaAuth.isAuthenticated().then(isAuthenticated => {
+          if (isAuthenticated) {
+            this.logged = true;
+          } else {
+            this.logged = false;
+          }
+        });
+      })
   }
 
   logged = false;
 
   public ngOnInit(): void {
-    setTimeout(() => {this.oktaAuth.isAuthenticated().then(isAuthenticated => {
+    this.oktaAuth.isAuthenticated().then(isAuthenticated => {
       if (isAuthenticated) {
         this.logged = true;
       } else {
         this.logged = false;
       }
-    });}, 200);
-    setTimeout(() => {this.oktaAuth.isAuthenticated().then(isAuthenticated => {
-      if (isAuthenticated) {
-        this.logged = true;
-      } else {
-        this.logged = false;
-      }
-    });}, 1000);
+    });
   }
 
   public logout(): void {

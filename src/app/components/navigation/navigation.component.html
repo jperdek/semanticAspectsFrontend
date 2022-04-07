@@ -44,10 +44,16 @@
     <mat-sidenav #sidenav>
         <mat-nav-list>
             <a (click)="sidenav.toggle()"
-            [routerLink]="'/login'" mat-list-item><mat-icon>account_circle</mat-icon>
+            [routerLink]="'/register'" *ngIf="!isLogged()" mat-list-item><mat-icon>account_circle</mat-icon>
+            <span>Register</span></a>
+            <a (click)="sidenav.toggle()"
+            [routerLink]="'/login'" *ngIf="!isLogged()" mat-list-item><mat-icon>account_circle</mat-icon>
             <span>Login</span></a>
-            <a (click)="sidenav.toggle(); logout()" mat-list-item><mat-icon>account_circle</mat-icon>
+            <a (click)="sidenav.toggle(); logout()" *ngIf="isLogged()" mat-list-item><mat-icon>account_circle</mat-icon>
             <span>Logout</span></a>
+            <a (click)="sidenav.toggle()"
+            [routerLink]="'/automatization'" mat-list-item><mat-icon>account_circle</mat-icon>
+            <span>Automatization</span></a>
             <a (click)="sidenav.toggle();" mat-list-item [routerLink]="'/analyser/senseAnalysis'"><mat-icon>edit</mat-icon>
                 <span>Sense analysis</span></a>
             <a (click)="sidenav.toggle()"

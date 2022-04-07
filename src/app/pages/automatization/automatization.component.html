@@ -18,7 +18,9 @@
           <button mat-button matStepperPrevious class="back-button" [routerLink]="'/'" >Back</button>
           <button mat-button (click)="stepper.reset()" class="reset-button">Reset</button>
         </div>
-        <button mat-button (click)="applyAutomatization()" class="analyze-button">Analyze</button>
+        <div class="step-buttons">
+          <button mat-button (click)="applyAutomatization()" class="analyze-button">Analyze</button>
+        </div>
       </mat-step>
     </mat-vertical-stepper>
   </mat-tab>

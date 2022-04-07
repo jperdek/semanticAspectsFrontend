@@ -43,8 +43,6 @@ const routes: Routes = [
   },
   {
     path: 'automatization',
-    canLoad: [OktaAuthGuard],
-    canActivate: [OktaAuthGuard],
     data: {
       roles: [
         Role.Admin,
