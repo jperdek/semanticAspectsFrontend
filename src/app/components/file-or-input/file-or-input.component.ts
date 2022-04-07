@@ -106,7 +106,6 @@ export class FileOrInputComponent implements OnInit {
   }
 
   public processShowingFile(loadedFile: FileModel): void {
-    console.log(loadedFile.type);
     if (loadedFile.progress === 100 && (loadedFile.type === 'text/plain' || loadedFile.type === 'text/html')){
       this.getFileContent(loadedFile);
       loadedFile.showed = true;

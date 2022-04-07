@@ -12,6 +12,8 @@ export const environment = {
     issuer: 'https://dev-03853854.okta.com',
     login_redirect_uri: 'http://localhost:4200/lcallback',
     logout_redirect_uri: 'http://localhost:4200/',
+    register_address: 'https://dev-03853854.okta.com/api/v1/users?activate=true',
+    ssws_api_token: '00LILaDwqgSXxJl2UTwZzLEIRybFy2j3RdtSwrt7uW'
   }
 };
 

@@ -4,6 +4,11 @@
 
         <span class="menu-spacer"></span>
         <div class="menu-buttons">
+            <button class="menu-component-item" color="accent" mat-icon-button id="register" 
+                [routerLink]="'/register'" *ngIf="!isLogged()">
+                <mat-icon>account_circle</mat-icon>
+                <span>Register</span>
+            </button>
             <button class="menu-component-item" color="accent" mat-icon-button id="login" 
                 [routerLink]="'/login'" *ngIf="!isLogged()">
                 <mat-icon>account_circle</mat-icon>

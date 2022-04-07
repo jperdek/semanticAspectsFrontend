@@ -32,6 +32,7 @@
     "@sentry/angular": "^6.18.2",
     "@sentry/tracing": "^6.18.2",
     "@sreyaj/ng-star-rating": "^2.0.0",
+    "bcryptjs": "^2.4.3",
     "path": "^0.12.7",
     "raven-js": "^3.27.2",
     "rxjs": "~6.6.0",
@@ -58,5 +59,17 @@
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
     "typescript": "~4.5.5"
-  }
+  },
+  "browser": {
+	  "fs": false,
+	 "path": false,
+	 "os": false,
+	 "crypto": false,
+	 "stream": false,
+	 "http": false,
+	 "tls": false,
+	 "zlib": false,
+	 "https": false,
+	 "net": false
+	}
 }
