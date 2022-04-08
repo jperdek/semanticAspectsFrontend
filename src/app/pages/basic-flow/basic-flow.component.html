@@ -18,26 +18,37 @@
     </mat-step>
 
     <mat-step [stepControl]="senseFormGroup">
-      <form [formGroup]="senseFormGroup">
+      <form [formGroup]="senseBasedMethodFromGroup">
         <ng-template matStepLabel><p class="step-part-title">Configure semantic methods</p></ng-template>
 
         <div class="relevancy-settings">
-          <div class="main-category-heading">Choose relevancy threshold:</div>
+          <div class="main-category-heading">Number words which should be analyzed:</div>
           <mat-slider #scoreThreshold class="slider-relevancy"
+              formControlName="numberAnalyzedWords"
               thumbLabel
               [displayWith]="formatScoreLabel"
-              tickInterval="1000"
-              step="0.01"
+              tickInterval="200"
+              step="1"
               aria-label="units">
           </mat-slider>
         </div>
 
         <div class="example-full-width" appearance="fill">
-          <mat-label>Text for analysis</mat-label>
-          <textarea matInput name="textForAnalysis" placeholder="Ex. It makes me feel..."></textarea>
+          <mat-radio-group aria-label="Select an option" formControlName="chosenFile">
+            <mat-radio-button value="-1" id="somRadioNone" (change)="updateApply($event, null)" checked="true">
+              Not apply sense analysis</mat-radio-button>
+            <div *ngFor="let loadedFile of getUploadedFiles(); let index = index">
+              <form (ngSubmit)="updateRecord($event, loadedFile)">
+                  <div class="main-settings-som-content">
+                      <mat-radio-button value="{{index}}" id="somRadio{{index}}" (change)="updateApply($event, loadedFile)">
+                        Apply sense analysis</mat-radio-button>
+                      <span class="spacer spaces">     </span>
+                      <span>{{ loadedFile.name }}</span>
+                  </div>
+              </form>
+            </div>
+          </mat-radio-group>
         </div>
-
-        <button (click)="startSenseAnalysis('This text is good to process for many reasons!!!', 3)">Send request</button>
       </form>
     </mat-step>
     <mat-step>
@@ -48,8 +59,9 @@
         <button mat-button (click)="stepper.reset()" class="reset-button">Reset</button>
       </div>
       <div class="step-buttons">
-        <button mat-button (click)="applyAutomatization()" class="analyze-button">Analyze</button>
+        <button mat-button (click)="applyConfigurationAndStartAnalysis()" class="analyze-button">Analyze</button>
       </div>
     </mat-step>
   </mat-vertical-stepper>
 </div>
+<app-semantic-aspect-overview [automatizationResult]="automatizationResultSenseAnalysis" *ngIf="automatizationResultSenseAnalysis"></app-semantic-aspect-overview>

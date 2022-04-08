@@ -28,6 +28,7 @@
                 </form>
             </div>
         </mat-expansion-panel>
+        <app-spinner *ngIf="spinnerVisibility"></app-spinner>
         <mat-expansion-panel>
             <mat-expansion-panel-header>
                 <mat-panel-title>
@@ -39,7 +40,6 @@
                         
                 </mat-panel-description>
             </mat-expansion-panel-header>
-            
             <app-som-extractor [somTemplateFile]="somTemplateFileReference"></app-som-extractor>
             <app-select-files-for-som [files]="files" [segmentation]="true" segmentationMethodName="SOM"></app-select-files-for-som>
             <div class="apply-som-button-part">

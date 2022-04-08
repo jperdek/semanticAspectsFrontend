@@ -6,7 +6,6 @@
     margin-top: 16px;
 }
 
-
 .step-buttons {
     display: flex;
     justify-content: right;
@@ -207,6 +206,8 @@
     display: block;
     font-size: x-large;
     font-weight: bold;
+    word-break: break-word;
+    white-space: normal;
   }
 
   ::ng-deep mat-step-header {
@@ -232,5 +233,22 @@
   @media(min-width: 650px){
     .analyze-button {
       width: 400px;
+    }
+  }
+
+  .spaces {
+    margin-left: 35px;
+    margin-right: 40px;
+  }
+
+  @media(max-width: 450px) {
+    ::ng-deep.mat-stepper-label-position-bottom .mat-horizontal-stepper-header, ::ng-deep.mat-vertical-stepper-header {
+      padding: 24px 0 24px 0 !important;
+    }
+  }
+  
+  @media(min-width: 450px) and (max-width: 900px) {
+    ::ng-deep.mat-stepper-label-position-bottom .mat-horizontal-stepper-header, ::ng-deep.mat-vertical-stepper-header {
+      padding: 24px 0 24px 10px!important;
     }
   }
