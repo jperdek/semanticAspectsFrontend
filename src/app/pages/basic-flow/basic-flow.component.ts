@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SharedFilesForAnalysisService } from 'src/app/services/shared-files-for-analysis.service';
+import { AutomatizationComponent } from '../automatization/automatization.component';
 
 @Component({
   selector: 'app-basic-flow',
   templateUrl: './basic-flow.component.html',
-  styleUrls: ['./basic-flow.component.css']
+  styleUrls: ['./basic-flow.component.scss']
 })
 export class BasicFlowComponent implements OnInit {
 
@@ -13,8 +14,13 @@ export class BasicFlowComponent implements OnInit {
   senseFormGroup: FormGroup;
   fileFormGroup: FormGroup;
   processFiles = true;
+  spinnerVisibility = false;
 
   constructor(private formBuilder: FormBuilder) {}
+
+  public formatScoreLabel(value: number): number {
+    return AutomatizationComponent.roundNumberToPlaces(value, 2);
+  }
 
   public ngOnInit(): void {
     this.fileFormGroup = this.formBuilder.group({
@@ -47,5 +53,8 @@ export class BasicFlowComponent implements OnInit {
     console.log(SharedFilesForAnalysisService.getUploadedFiles());
     // this._senseApiManagerService.senseAnalysis(text, window)
     // .then(result => console.log(result)).catch(error => console.log("Error: " + error));
+  }
+
+  public applyAutomatization(): void {
   }
 }

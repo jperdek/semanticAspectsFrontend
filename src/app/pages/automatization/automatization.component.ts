@@ -30,7 +30,7 @@ export class AutomatizationComponent implements OnInit {
               private matSnackBar: MatSnackBar) {}
 
   isLinear = false;
-  spinnerVisibility = false
+  spinnerVisibility = false;
   senseFormGroup: FormGroup;
   fileFormGroup: FormGroup;
   automatizationResults: AutomatizationResult[] = [];

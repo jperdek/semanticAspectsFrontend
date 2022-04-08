@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ErrorSnackbarComponent } from 'src/app/components/snackbars/error-snackbar/error-snackbar.component';
 import { InfoSnackbarComponent } from 'src/app/components/snackbars/info-snackbar/info-snackbar.component';
+import { SuccessSnackbarComponent } from 'src/app/components/snackbars/success-snackbar/success-snackbar.component';
 import { SOMUsageType } from 'src/app/models/somSettings';
 import { SomSegmentationMethodService } from 'src/app/services/segmentation/som-segmentation-method.service';
 import { FileModel } from '../../models/fileModel';
@@ -37,6 +38,27 @@ export class SegmentationAnalysisComponent {
     webkitRelativePath: ''
   };
 
+  public createSOMFileTemplate(templateContent: string) {
+    return {
+      progress: 100,
+      showed: true,
+      textResult: templateContent,
+      appliedSegmentation: true,
+      segmentationMethod: 'None',
+      disallowedMethods: [],
+      name: 'somTemplate',
+      size: 1,
+      type: 'text/plain',
+      lastModified: Date.now().valueOf(),
+      stream: null,
+      arrayBuffer: null,
+      slice: null,
+      text: null,
+      somSettings: undefined,
+      webkitRelativePath: ''
+    };
+  }
+
   cetdFormGroup: FormGroup;
   analyzeTemplateFormGroup: FormGroup;
 
@@ -68,6 +90,7 @@ export class SegmentationAnalysisComponent {
             file.segmentationMethod = 'cetd';
             file.appliedSegmentation = true;
             file.textResult = JSON.stringify(result);
+            SuccessSnackbarComponent.openSnackBar(this.matSnackBar, 'Document: ' + file.name + ' is successfully segmented!');
           }).catch(error => {
             ErrorSnackbarComponent.openSnackBar(this.matSnackBar, 'Error occured during cetd analysis: ' + error);
           });
@@ -80,16 +103,22 @@ export class SegmentationAnalysisComponent {
 
   public useTextSegmentation(): void {
     InfoSnackbarComponent.openSnackBar(this.matSnackBar, 'Text segmentation has started!');
+    let numberAnalyzed = 0;
     for (const file of this.files){
       if (!file.disallowedMethods.includes('all_text')){
+        numberAnalyzed = numberAnalyzed + 1
         this.basicSegmentationMethodsService.textExtractor(file.textResult).then(result => {
           file.segmentationMethod = 'all_text';
           file.appliedSegmentation = true;
           file.textResult = JSON.stringify(result);
+          SuccessSnackbarComponent.openSnackBar(this.matSnackBar, 'Document: ' + file.name + ' is successfully segmented!');
         }).catch(error => {
           ErrorSnackbarComponent.openSnackBar(this.matSnackBar, 'Error occured during text analysis: ' + error);
         });
       }
+    }
+    if (numberAnalyzed === 0){
+      ErrorSnackbarComponent.openSnackBar(this.matSnackBar, 'Error: no files were analyzed. Select one!');
     }
   }
 
@@ -99,13 +128,15 @@ export class SegmentationAnalysisComponent {
     if (this.somTemplateFileReference.textResult === undefined) {
       this.somSegmentationMethod.createSOMTree(mergedFiles).then(result => {
         // USE RESULT
-        console.log(result);
+        this.somTemplateFileReference.textResult = JSON.stringify(result);
+        SuccessSnackbarComponent.openSnackBar(this.matSnackBar, 'SOM tree has been created!');
       }).catch(error => {
         ErrorSnackbarComponent.openSnackBar(this.matSnackBar, 'Error occured during SOM segmentation analysis: ' + error);
       });
     } else {
       this.somSegmentationMethod.updateSOMTree(mergedFiles, this.somTemplateFileReference.textResult).then(result => {
-        // USE RESULT
+        this.somTemplateFileReference.textResult = JSON.stringify(result);
+        SuccessSnackbarComponent.openSnackBar(this.matSnackBar, 'SOM tree has been updated!');
       }).catch(error => {
         ErrorSnackbarComponent.openSnackBar(this.matSnackBar, 'Error occured during SOM segmentation analysis: ' + error);
       });
