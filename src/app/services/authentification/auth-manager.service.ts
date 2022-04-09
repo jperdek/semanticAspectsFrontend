@@ -17,9 +17,12 @@ export class AuthManagerService {
     return environment.apiBaseUrl || 'http://localhost:5000';
   }
 
-  async perform(method: string, apiPart: string, httpParameters: HttpParams, data = {}, additionalHeaders: any = {}): Promise<any> {
+  async perform(method: string, apiPart: string,
+                httpParameters: HttpParams, data = {},
+                additionalHeaders: any = {},
+                notUseOkta: boolean = false): Promise<any> {
     let accessToken;
-    if (environment.useOcta){
+    if (environment.useOcta && !notUseOkta){
       accessToken = await this.oktaAuth.getAccessToken();
     } else {
       accessToken = 'debug';

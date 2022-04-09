@@ -54,7 +54,7 @@ export class OktaRegisterService {
     return {
       Accept: 'application/json',
       'Content-Type': 'application/json',
-      Authorization: 'SSWS ' + environment.octa_data.ssws_api_token
+      Authorization: 'SSWS ' + environment.octa_data.sws_api_token
     };
   }
   public registerUser(user: User, openedPassword: string): void {
@@ -62,12 +62,7 @@ export class OktaRegisterService {
     const httpOptions = {
       headers: new HttpHeaders(this.getHeadersData())
     };
-    console.log(registerBody);
     this.http.post(environment.octa_data.register_address, registerBody, httpOptions).toPromise().then((result: any) => {
-      console.log(result);
-      //this.http.post(result._links.self.href, httpOptions).toPromise().then(result => {
-      //  console.log(result);
-      //});
     });
   }
 }

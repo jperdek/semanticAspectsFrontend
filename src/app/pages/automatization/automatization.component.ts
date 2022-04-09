@@ -13,6 +13,8 @@ import { UserFeedbackComponent } from 'src/app/components/snackbars/user-feedbac
 import { ErrorSnackbarComponent } from 'src/app/components/snackbars/error-snackbar/error-snackbar.component';
 import { environment } from 'src/environments/environment';
 import { SuccessSnackbarComponent } from 'src/app/components/snackbars/success-snackbar/success-snackbar.component';
+import { CategoryRating } from 'src/app/models/category';
+import { Aggregation, AggregationRepresentants } from 'src/app/models/aggregation';
 
 
 @Component({
@@ -86,7 +88,8 @@ export class AutomatizationComponent implements OnInit {
       links: automatizationResultData.links,
       mappings: automatizationResultData.mappings,
       readability_metrics: automatizationResultData.readability_metrics,
-      readability_indexes: automatizationResultData.readability_indexes
+      readability_indexes: automatizationResultData.readability_indexes,
+      co_occurrence_aggregations: automatizationResultData.co_occurrence_aggregations
     };
   }
 
@@ -99,6 +102,10 @@ export class AutomatizationComponent implements OnInit {
             this.automatizationService.automatizationRequest(
               uploadedFile.textResult, uploadedFile.name).then((automatizationResultData: AutomatizationResult) => {
                 const automatizationResult: AutomatizationResult = this.copyAutomatizationResultData(automatizationResultData);
+                if (automatizationResult.co_occurrence_aggregations !== null && automatizationResult.co_occurrence_aggregations !== undefined) {
+                  automatizationResult.co_occurrence_aggregations = this.getAggregationsStructure(
+                    automatizationResult.co_occurrence_aggregations);
+                }
                 automatizationResult.readability_indexes = this.analyzeReadabilityMetris(uploadedFile.textResult);
                 if (environment.debug){ console.log(automatizationResult); }
                 this.automatizationResults.push(automatizationResult);
@@ -119,5 +126,33 @@ export class AutomatizationComponent implements OnInit {
 
   private getFeedback(fileModel: FileModel): void {
     UserFeedbackComponent.openSnackBar(this.feedbackBar, 'Provide your feedback', this.loggingeService, fileModel);
+  }
+
+  private capitalize(word: string): string {
+    return word[0].toUpperCase() + word.slice(1).toLowerCase();
+  }
+
+  public getAggregationsStructure(aggregationsDictionary: any): any[] {
+    let key: string;
+    let value: any;
+    const aggregationsStructure: any[] = [];
+    for ([key, value] of Object.entries(aggregationsDictionary)) {
+      aggregationsStructure.push({name: this.capitalize(key.split('_').join(' ')), data: this.convertAggregation(value)});
+    }
+    return aggregationsStructure;
+  }
+
+  private convertAggregation(aggregations: Aggregation[]): AggregationRepresentants[] {
+    let category: string;
+    let value: any;
+    const aggregationRepresentants: AggregationRepresentants[] = [];
+    aggregations.forEach(aggregation => {
+      const categoryRatings: CategoryRating[] = [];
+      for ([category, value] of Object.entries(aggregation.matched)) {
+        categoryRatings.push({category, value: Number(value)});
+      }
+      aggregationRepresentants.push({meaning: aggregation.meaning, representants: categoryRatings});
+    });
+    return aggregationRepresentants;
   }
 }

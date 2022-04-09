@@ -90,7 +90,8 @@ export class BasicFlowComponent implements OnInit {
             links: null,
             mappings: null,
             readability_metrics: null,
-            readability_indexes: null
+            readability_indexes: null,
+            co_occurrence_aggregations: null
           };
           this.spinnerVisibility = false;
         }).catch(error => console.log('Error: ' + error));

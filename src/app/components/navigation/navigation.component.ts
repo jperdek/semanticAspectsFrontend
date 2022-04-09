@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 import { AuthenticationService } from '../../services/authentification/authentication.service';
 import { OktaAuthService } from '../../services/authentification/okta-auth.service';
 
@@ -22,12 +23,14 @@ export class NavigationComponent implements OnInit {
             this.logged = false;
           }
         });
-      })
+      });
   }
 
   logged = false;
+  useOcta = true;
 
   public ngOnInit(): void {
+    this.useOcta = environment.useOcta;
     this.oktaAuth.isAuthenticated().then(isAuthenticated => {
       if (isAuthenticated) {
         this.logged = true;

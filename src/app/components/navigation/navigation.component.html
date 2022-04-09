@@ -5,17 +5,17 @@
         <span class="menu-spacer"></span>
         <div class="menu-buttons">
             <button class="menu-component-item" color="accent" mat-icon-button id="register" 
-                [routerLink]="'/register'" *ngIf="!isLogged()">
+                [routerLink]="'/register'" *ngIf="useOcta && !isLogged()">
                 <mat-icon>account_circle</mat-icon>
                 <span>Register</span>
             </button>
             <button class="menu-component-item" color="accent" mat-icon-button id="login" 
-                [routerLink]="'/login'" *ngIf="!isLogged()">
+                [routerLink]="'/login'" *ngIf="useOcta && !isLogged()">
                 <mat-icon>account_circle</mat-icon>
                 <span>Login</span>
             </button>
             <button class="menu-component-item" color="accent" mat-icon-button id="logout"
-                (click)="logout()" *ngIf="isLogged()">
+                (click)="logout()" *ngIf="useOcta && isLogged()">
                 <mat-icon>account_circle</mat-icon>
                 <span>Logout</span>
             </button>
@@ -44,12 +44,12 @@
     <mat-sidenav #sidenav>
         <mat-nav-list>
             <a (click)="sidenav.toggle()"
-            [routerLink]="'/register'" *ngIf="!isLogged()" mat-list-item><mat-icon>account_circle</mat-icon>
+            [routerLink]="'/register'" *ngIf="useOcta && !isLogged()" mat-list-item><mat-icon>account_circle</mat-icon>
             <span>Register</span></a>
             <a (click)="sidenav.toggle()"
-            [routerLink]="'/login'" *ngIf="!isLogged()" mat-list-item><mat-icon>account_circle</mat-icon>
+            [routerLink]="'/login'" *ngIf="useOcta && !isLogged()" mat-list-item><mat-icon>account_circle</mat-icon>
             <span>Login</span></a>
-            <a (click)="sidenav.toggle(); logout()" *ngIf="isLogged()" mat-list-item><mat-icon>account_circle</mat-icon>
+            <a (click)="sidenav.toggle(); logout()" *ngIf="useOcta && isLogged()" mat-list-item><mat-icon>account_circle</mat-icon>
             <span>Logout</span></a>
             <a (click)="sidenav.toggle()"
             [routerLink]="'/automatization'" mat-list-item><mat-icon>account_circle</mat-icon>

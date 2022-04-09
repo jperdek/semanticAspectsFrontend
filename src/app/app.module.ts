@@ -62,6 +62,7 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
 import { AuthenticationService } from './services/authentification/authentication.service';
 import { OktaAuthService } from './services/authentification/okta-auth.service';
 import { SemanticAspectOverviewComponent } from './components/semantic-aspect-overview/semantic-aspect-overview.component';
+import { AggregationVisualizationComponent } from './components/aggregation-visualization/aggregation-visualization.component';
 Raven.config('https://f7c7c35bac3a4cffa8676c1839c7b15d@o517887.ingest.sentry.io/6256077').install();
 /*
 import * as Sentry from "@sentry/browser";
@@ -112,7 +113,8 @@ Sentry.init({
     SuccessSnackbarComponent,
     InfoSnackbarComponent,
     SpinnerComponent,
-    SemanticAspectOverviewComponent
+    SemanticAspectOverviewComponent,
+    AggregationVisualizationComponent
   ],
   imports: [
     BrowserModule,

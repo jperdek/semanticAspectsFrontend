@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Aggregation, AggregationStructure } from 'src/app/models/aggregation';
 import { AutomatizationResult } from 'src/app/models/automatizationResult';
+import { CategoryRating } from 'src/app/models/category';
 import { AutomatizationComponent } from 'src/app/pages/automatization/automatization.component';
 
 @Component({
