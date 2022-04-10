@@ -8,6 +8,9 @@ RUN npm ci
 # copy all sources - make sure your node_modules are part of .dockerignore
 COPY . .
 
+# Copy docker environment variables
+COPY src/environments/environment.prod.docker.ts src/environments/environment.prod.ts
+
 # build production version of application
 RUN npm run ng build -- --configuration production --output-path=dist
 
@@ -22,8 +25,6 @@ ENV BASE_HREF /
 
 # Copy nginx config to serve refresh pages
 COPY nginx.conf /etc/nginx/
-# Copy docker environment variables
-COPY src/environments/environment.prod.docker.ts src/environments/environment.prod.ts
 
 # copy artifacts from build-env
 COPY --from=build-env /app/dist /usr/share/nginx/html

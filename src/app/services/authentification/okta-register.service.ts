@@ -54,7 +54,7 @@ export class OktaRegisterService {
     return {
       Accept: 'application/json',
       'Content-Type': 'application/json',
-      Authorization: 'SSWS ' + environment.octa_data.sws_api_token
+      Authorization: 'SSWS ' + environment.octa_data.ssws_api_token
     };
   }
   public registerUser(user: User, openedPassword: string): void {

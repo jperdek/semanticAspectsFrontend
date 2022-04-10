@@ -6,7 +6,7 @@
 
 .visualization-component {
   display: flex;
-  overflow: scroll;
+  overflow-x: scroll;
   align-items: center;
 
   table,
